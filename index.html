@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en" data-site-mode="preview" data-hero="b">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="site-config.js?v=7db7a796"></script>
+<title>GNR: Generative Neural Retargeting for Human-to-Robot Dexterous Manipulation</title>
+<meta name="description" content="Generative Neural Retargeting for dexterous manipulation, including a four-camera real-robot policy demonstration.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)">
+
+<meta property="og:site_name" content="GNR: Generative Neural Retargeting">
+<meta property="og:title" content="Generative Neural Retargeting for Human-to-Robot Dexterous Manipulation">
+<meta property="og:description" content="Generative Neural Retargeting for dexterous manipulation, including a four-camera real-robot policy demonstration.">
+<meta property="og:type" content="website">
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=b7cad678">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=da53a9e3">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=dc9ff711">
+<link rel="stylesheet" href="assets/css/site.css?v=50bd79f5">
+<link rel="stylesheet" href="assets/css/policy.css?v=b951644a">
+<script defer src="assets/js/asset-versions.js?v=ae3bbcd5"></script>
+<script defer src="assets/js/site.js?v=a6e49ecf"></script>
+<script defer src="assets/js/policy.js?v=226e8821"></script>
+<script defer src="assets/js/gallery.js?v=d0c119a0"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Sections"><div class="nav__in">
+  <a class="nav__brand" href="#top"><svg width="24" height="24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#f1f2f4"/><path d="M20.5 47.5 L11.2 35.2" stroke="#b4b9c1" stroke-width="7.6" stroke-linecap="round" fill="none"/><g transform="rotate(-6 21.4 31.5)"><path d="M21.4 33.5 V13.4" stroke="#b4b9c1" stroke-width="6.8" stroke-linecap="round" fill="none"/></g><g transform="rotate(-1.5 28.9 31.5)"><path d="M28.9 33.5 V10.4" stroke="#b4b9c1" stroke-width="6.8" stroke-linecap="round" fill="none"/></g><path d="M32.4 30 H22.3 a5.3 5.3 0 0 0 -5.3 5.3 V46 a10.5 10.5 0 0 0 10.5 10.5 H32.4 Z" fill="#b4b9c1"/><g transform="rotate(2.5 36.4 31.5)"><rect x="33.2" y="22.11" width="6.4" height="6.59" rx="1.0" fill="#2f5bea"/><circle cx="36.4" cy="21.41" r="1.15" fill="#2f5bea"/><rect x="33.2" y="15.13" width="6.4" height="5.58" rx="1.0" fill="#2f5bea"/><circle cx="36.4" cy="14.43" r="1.15" fill="#2f5bea"/><rect x="33.2" y="9" width="6.4" height="4.73" rx="2.6" fill="#2f5bea"/></g><g transform="rotate(7 43.9 31.5)"><rect x="41" y="23.86" width="5.8" height="4.84" rx="1.0" fill="#2f5bea"/><circle cx="43.9" cy="23.16" r="1.15" fill="#2f5bea"/><rect x="41" y="18.37" width="5.8" height="4.09" rx="1.0" fill="#2f5bea"/><circle cx="43.9" cy="17.67" r="1.15" fill="#2f5bea"/><rect x="41" y="13.5" width="5.8" height="3.47" rx="2.6" fill="#2f5bea"/></g><path d="M33.6 30 H45.6 a3 3 0 0 1 3 3 V53.5 a3 3 0 0 1 -3 3 H33.6 Z" fill="#2f5bea"/><rect x="33.6" y="43.4" width="15" height="1.3" fill="#f1f2f4"/></svg>GNR</a>
+  <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="section-links">Contents</button>
+  <div class="nav__links" id="section-links">
+    <a href="#policy">Policy Sim-to-Real</a><a href="#video">Video</a><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#dataset">Dataset</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+
+  <div class="hero__stage">
+    <div class="hero__media" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 760px)" type="image/webp" srcset="assets/hero/gnr-hero-mobile-poster.webp?v=c4d81305">
+        <source media="(max-width: 760px)" srcset="assets/hero/gnr-hero-mobile-poster.jpg?v=3b300c2e">
+        <source type="image/webp" srcset="assets/hero/gnr-hero-desktop-poster.webp?v=2c635ece">
+        <img src="assets/hero/gnr-hero-desktop-poster.jpg?v=a363f7ed" width="1920" height="1080" alt="" fetchpriority="high">
+      </picture>
+      <video id="hero-video" muted loop playsinline preload="none" tabindex="-1" disablepictureinpicture aria-hidden="true"></video>
+    </div>
+
+    <div class="hero__axes" aria-hidden="true">
+      <p class="hero__axis hero__axis--l" data-axis="l"><b>Long-horizon &middot; high precision</b><span>10&ndash;30&nbsp;s &middot; 1&ndash;2&nbsp;mm</span></p>
+      <p class="hero__axis hero__axis--r" data-axis="r"><b>Diversity</b><span>223k demos &middot; 3.3k geometries</span></p>
+    </div>
+  </div>
+  <div class="hero__in">
+    <p class="eyebrow eyebrow--hero">Anonymous review material</p>
+    <h1 class="hero__title"><span class="hero__name"><span class="hero__ini">G</span>enerative <span class="hero__ini">N</span>eural <span class="hero__ini">R</span>etargeting</span> <span class="hero__sub">for Human-to-Robot Dexterous Manipulation</span></h1>
+    <div class="links">
+      <a class="pill pill--primary" href="#policy">Real Robot Demo</a>
+      <a class="pill" href="#video">Watch the Explainer</a>
+    </div>
+  </div>
+  <div class="hero__bottom">
+    <a class="hero__scroll" href="#policy"><span>Scroll</span><i aria-hidden="true"></i></a>
+    <button id="hero-pause" class="hero__pause" type="button" aria-controls="hero-video">Pause background video</button>
+  </div>
+</header>
+
+<template id="full-site-content">
+<main id="main">
+
+<section class="policy" id="policy" aria-labelledby="policy-title" data-policy>
+  <div class="wrap">
+    <div class="policy__head">
+      <div>
+        <h2 id="policy-title">Policy Sim-to-Real</h2>
+        <p class="policy__lead">Vision-based diffusion policy with four RGB cameras.</p>
+      </div>
+      <ul class="policy__highlights" role="list">
+        <li>Zero-shot real robot demonstrations</li>
+        <li>Millimeter-precision five-fingered dexterous manipulation</li>
+      </ul>
+    </div>
+    <div class="policy__deck" data-policy-deck>
+      <div class="policy__grid" data-policy-grid></div>
+      <div class="policy__controls">
+        <button class="policy__play" type="button" data-policy-play>Play</button>
+        <input type="range" min="0" max="13.96" step="0.01" value="0" aria-label="Seek through the synchronized demonstration" data-policy-seek disabled>
+        <span class="policy__time" data-policy-time>0:00 / 0:14</span>
+        <button class="policy__expand" type="button" data-policy-full hidden>Full screen</button>
+      </div>
+      <p class="policy__error" data-policy-error role="status" hidden>The demonstration could not load. Try playing it again.</p>
+      <noscript><p>Enable JavaScript to play the synchronized camera views.</p></noscript>
+    </div>
+  </div>
+</section>
+
+<section class="intro" id="overview" aria-label="Summary">
+  <div class="wrap">
+    <p class="eyebrow">TL;DR</p>
+    <p class="intro__text">Making human-to-robot dexterous retargeting scalable and efficient.</p>
+    <p class="intro__subtitle">GNR recasts <strong>physics-based retargeting as generative modeling</strong>. It learns and samples from the feasible motion manifold and achieves <strong>test-time scaling</strong>.</p>
+    <dl class="stats">
+      <div class="stat"><dt>Success on 1,000 OOD HOT3D demos</dt><dd><b>56.2%</b> <span>vs. 27.2% for DIAL-MPC (27.2&ndash;34.7% for sampling-based methods)</span></dd></div>
+      <div class="stat"><dt>Sampling budget</dt><dd><b>8.5%</b> <span>of MPC's samples (256 vs. 3,000)</span></dd></div>
+      <div class="stat"><dt>Retargeted HOT3D dataset</dt><dd><b>223k</b> <span>demonstrations, 3.3k object geometries</span></dd></div>
+      <div class="stat"><dt>Precision assembly, 1&nbsp;mm precision</dt><dd><b>33.3%</b> <span>fewer MPC samples at 92.2% success</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="filmsec" id="video" aria-label="Explainer video" data-film>
+  <div class="filmsec__pin">
+    <div class="filmsec__sticky">
+      <div class="filmsec__head">
+        <p class="eyebrow">Explainer video</p>
+        <h2 class="filmsec__title">GNR</h2>
+      </div>
+      <div class="film__stage">
+        <div class="player" data-player tabindex="-1">
+          <div class="player__box">
+            <img class="player__poster" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <video class="player__video" playsinline muted preload="none" aria-label="GNR explainer video"></video>
+            <button class="player__big" type="button" data-act="start"><span class="player__big-icon" aria-hidden="true"></span><span class="player__big-label"><b>Play the explainer</b><small data-film-duration></small></span></button>
+            <button class="player__sound" type="button" data-act="sound" hidden><span class="i-vol" aria-hidden="true"></span><span>Sound on</span></button>
+            <div class="player__toast" aria-live="polite"></div>
+            <div class="player__bar">
+              <div class="player__track" data-track role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0:00">
+                <div class="player__segs" data-segs></div>
+                <div class="player__tip" data-tip hidden></div>
+              </div>
+              <div class="player__ctrls">
+                <button class="pbtn" type="button" data-act="play" aria-label="Play"><span class="i-play" aria-hidden="true"></span></button>
+                <button class="pbtn" type="button" data-act="back" aria-label="Back 10 seconds"><span class="i-back" aria-hidden="true">10</span></button>
+                <button class="pbtn" type="button" data-act="fwd" aria-label="Forward 10 seconds"><span class="i-fwd" aria-hidden="true">10</span></button>
+                <button class="pbtn" type="button" data-act="mute" aria-label="Unmute"><span class="i-vol" aria-hidden="true"></span></button>
+                <span class="player__time"><span data-cur>0:00</span> / <span data-dur>0:00</span></span>
+                <span class="player__chap" data-chap></span>
+                <span class="player__sp"></span>
+                <div class="player__menu">
+                  <button class="pbtn pbtn--txt" type="button" data-act="quality" aria-haspopup="true" aria-expanded="false" aria-label="Quality"><span data-q>Auto</span></button>
+                  <ul class="player__qlist" role="menu" hidden>
+                    <li role="none"><button role="menuitemradio" type="button" data-q="auto" aria-checked="true">Auto</button></li>
+                    <li role="none"><button role="menuitemradio" type="button" data-q="1080" aria-checked="false">1080p</button></li>
+                    <li role="none"><button role="menuitemradio" type="button" data-q="720" aria-checked="false">720p</button></li>
+                  </ul>
+                </div>
+                <button class="pbtn" type="button" data-act="pip" aria-label="Picture in picture" hidden><span class="i-pip" aria-hidden="true"></span></button>
+                <button class="pbtn" type="button" data-act="keys" aria-label="Keyboard shortcuts"><span aria-hidden="true">?</span></button>
+                <button class="pbtn" type="button" data-act="fs" aria-label="Full screen"><span class="i-fs" aria-hidden="true"></span></button>
+              </div>
+            </div>
+            <div class="player__keys" hidden>
+              <p><b>Keyboard</b></p>
+              <dl><dt>Space / K</dt><dd>play or pause</dd><dt>&larr; / &rarr;</dt><dd>5 s back / forward</dd><dt>J / L</dt><dd>10 s back / forward</dd><dt>P / N</dt><dd>previous / next chapter</dd><dt>M</dt><dd>mute</dd><dt>F</dt><dd>full screen</dd><dt>0&ndash;9</dt><dd>jump to 0&ndash;90%</dd></dl>
+            </div>
+          </div>
+          <ol class="player__chapters" data-chapters aria-label="Chapters"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap filmsec__foot">
+    <p>Music only; all text is on screen. <span data-downloads></span></p>
+  </div>
+</section>
+
+<section id="abstract" class="sec">
+  <div class="wrap">
+   <div class="wrap--text">
+    <p class="eyebrow">Abstract</p>
+    <div class="abstract">
+      <p>Human demonstrations are a scalable data source for learning dexterous manipulation, but the embodiment gap prevents human motion from being executed directly on robots. Inverse kinematics (IK) retargets human motion to robots efficiently but ignores dynamics, often producing infeasible motions. Reinforcement learning (RL) and sampling-based model predictive control (MPC) are commonly employed to yield dynamically feasible motions, but both are sample-inefficient and sensitive to hyperparameters. RL suffers from costly and unstable training and tedious reward engineering; MPC avoids policy optimization, yet retargets each trajectory in isolation, and solving one does not make the next easier. Sampling cost grows rapidly with dataset size and task difficulty. We hypothesize that dynamically feasible trajectories concentrate near a low-dimensional manifold shared across demonstrations, so that retargeting can be reduced to sampling from that manifold, conditioned on human motion, rather than solving a fresh optimization problem for every demonstration. We propose <b>Generative Neural Retargeting</b> (GNR), which uses a flow matching model to sample feasible trajectories. GNR outperforms MPC with only 8.5% of the samples required by MPC, achieving a success rate of 56.20% compared to 27.20% for MPC. GNR can be used for scalable and efficient retargeting of large-scale, long-horizon, and millimeter precision human demonstrations: by applying GNR within a real-to-sim data engine, we produce a dexterous manipulation dataset with dense contact-force labels, spanning 223k demonstrations and 3.3k object geometries.</p>
+    </div>
+   </div>
+  </div>
+</section>
+
+<section id="method" class="sec">
+  <div class="wrap">
+    <div class="sec__head wrap--text">
+      <p class="eyebrow">Method</p>
+      <h2 class="sec__title">Learn and sample from the feasible motion manifold</h2>
+      <p class="lead">Retargeting asks for a control sequence that reproduces a human demonstration under physics. IK is fast but ignores dynamics. Sampling-based MPC finds feasible motion but solves every demonstration from scratch, so its cost grows with dataset size and task difficulty. GNR learns a feasible motion manifold from a small MPC-generated seed dataset and samples robot trajectories from that manifold. Generalization and test-time scaling make GNR a more scalable and efficient retargeter.</p>
+    </div>
+    <figure class="pfig pfig--wide">
+      <picture><source type="image/webp" srcset="assets/paper/fig1.webp?v=ceb200f6"><img src="assets/paper/fig1.png?v=43f58cea" width="1600" height="641" loading="lazy" decoding="async" data-gallery data-title="GNR at a glance" alt="Overview figure: the GNR data engine turns egocentric and motion-capture human recordings into robot trajectories by real-to-sim, inverse kinematics, and either MPC sampling or GNR sampling, yielding 223k trajectories over 3.3k geometries; the benchmarks span large-scale diverse objects and long-horizon high-precision tasks."></picture>
+      <figcaption>GNR retargets large-scale, long-horizon and high-precision human demonstrations for five-fingered dexterous manipulation. A real-to-sim data engine reconstructs human motion from egocentric videos or from a wearable exoskeleton with motion capture, scaling up both diverse and difficult high-precision tasks.</figcaption>
+    </figure>
+    <div class="axes">
+      <div class="axes__text">
+        <h3>Two scaling axes</h3>
+        <p><b>Diversity:</b> a dataset spanning many distinct geometries and motions, where the total sampling cost of MPC grows linearly with the number of demonstrations. <b>Difficulty:</b> long-horizon, millimeter-precision tasks, where errors compound and the samples needed to find a feasible trajectory grow rapidly.</p>
+      </div>
+      <div class="cost" aria-label="Illustrative sketches of MPC sampling cost">
+        <figure class="cost__plot"><figcaption>Diversity</figcaption>
+          <svg viewBox="0 0 230 134" role="img" aria-label="Diversity: sampling cost grows linearly with the number of demonstrations"><path class="axis" d="M30 10 L30 112 L220 112"/><path class="axis" d="M26.5 15 L30 9 L33.5 15 M215 108.5 L221 112 L215 115.5"/><path class="curve" d="M30.0 108.0 L204.0 32.0"/><text class="clabel" x="204.0" y="60.0" text-anchor="end">linear</text><text class="alabel" x="122" y="128" text-anchor="middle">number of demonstrations</text><text class="alabel" x="-64" y="18" transform="rotate(-90)" text-anchor="middle">sampling cost</text></svg>
+        </figure>
+        <figure class="cost__plot"><figcaption>Difficulty</figcaption>
+          <svg viewBox="0 0 230 134" role="img" aria-label="Difficulty: sampling cost grows rapidly with longer horizons and tighter precision"><path class="axis" d="M30 10 L30 112 L220 112"/><path class="axis" d="M26.5 15 L30 9 L33.5 15 M215 108.5 L221 112 L215 115.5"/><path class="curve" d="M30.0 108.0 L34.4 107.7 L38.7 107.4 L43.0 107.1 L47.4 106.7 L51.8 106.3 L56.1 105.9 L60.5 105.4 L64.8 104.9 L69.2 104.4 L73.5 103.7 L77.8 103.1 L82.2 102.4 L86.6 101.6 L90.9 100.7 L95.2 99.8 L99.6 98.8 L104.0 97.7 L108.3 96.5 L112.6 95.2 L117.0 93.8 L121.4 92.2 L125.7 90.6 L130.1 88.7 L134.4 86.7 L138.8 84.6 L143.1 82.2 L147.4 79.7 L151.8 76.9 L156.1 73.8 L160.5 70.5 L164.8 66.9 L169.2 63.0 L173.5 58.7 L177.9 54.0 L182.2 49.0 L186.6 43.4 L191.0 37.4 L195.3 30.9 L199.7 23.8 L204.0 16.0"/><text class="clabel" x="192.0" y="22.0" text-anchor="end">rapid growth</text><text class="alabel" x="122" y="128" text-anchor="middle">horizon &amp; precision</text><text class="alabel" x="-64" y="18" transform="rotate(-90)" text-anchor="middle">sampling cost</text></svg>
+        </figure>
+        <p class="cost__note">Illustrative sketches, not measured data.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">How GNR works, step by step</h3>
+    <div class="stepper" data-stepper>
+      <ol class="stepper__list" role="tablist" aria-label="Method steps" aria-orientation="vertical">
+        <li><button class="stepper__btn" role="tab" id="step-t1" aria-controls="step-p" aria-selected="true" data-step="0"><span class="stepper__n">1</span><span class="stepper__txt"><b>Seed data from a real-to-sim engine</b><span>Egocentric video or motion capture is reconstructed in simulation, retargeted by IK, and solved by DIAL-MPC. The solved demonstrations become training pairs.</span></span></button></li>
+        <li><button class="stepper__btn" role="tab" id="step-t2" aria-controls="step-p" aria-selected="false" tabindex="-1" data-step="1"><span class="stepper__n">2</span><span class="stepper__txt"><b>IK gives a rough reference</b><span>For a new demonstration, keypoint IK and the object poses give the kinematic reference <i>x&#772;</i><sub>0:T</sub> and reference controls <i>u&#772;</i>, which ignore dynamics and contact.</span></span></button></li>
+        <li><button class="stepper__btn" role="tab" id="step-t3" aria-controls="step-p" aria-selected="false" tabindex="-1" data-step="2"><span class="stepper__n">3</span><span class="stepper__txt"><b>A flow turns noise into a correction</b><span>A conditional flow-matching model maps Gaussian noise to a residual correction of the IK controls, conditioned on the reference and on object geometry (Point Transformer V3 over 1,024 points) or pose.</span></span></button></li>
+        <li><button class="stepper__btn" role="tab" id="step-t4" aria-controls="step-p" aria-selected="false" tabindex="-1" data-step="3"><span class="stepper__n">4</span><span class="stepper__txt"><b>Sample many, check in simulation</b><span>Draw <i>S</i> candidates, replay each in simulation, and succeed if any passes the task criterion (pass@<i>S</i>). More samples raise success: test-time scaling.</span></span></button></li>
+        <li><button class="stepper__btn" role="tab" id="step-t5" aria-controls="step-p" aria-selected="false" tabindex="-1" data-step="4"><span class="stepper__n">5</span><span class="stepper__txt"><b>Warm-start MPC on hard tasks</b><span>For long-horizon, high-precision tasks, a GNR sample gives MPC an on-manifold initialization, which MPC then refines in closed loop.</span></span></button></li>
+      </ol>
+      <div class="stepper__panel" id="step-p" role="tabpanel" aria-labelledby="step-t1">
+        <div class="stepper__screen">
+          <img class="stepper__poster" alt="" width="1280" height="720" loading="lazy" decoding="async">
+          <video class="stepper__video" muted playsinline preload="none" aria-label="Method step excerpt from the explainer video"></video>
+          <div class="stepper__prog"><i></i></div>
+        </div>
+        <p class="stepper__meta"><span>Excerpt from the explainer video.</span> <button type="button" class="linkbtn" data-act="step-film">Watch this part with sound</button></p>
+      </div>
+    </div>
+    <div class="eq" role="math" aria-label="u from 0 to T minus 1 equals u bar plus delta hat, where delta hat equals G theta of z zero given c, z zero drawn from a standard normal, and c equals the reference x bar and object encoding o">
+      <span><i>u</i><sub>0:T&minus;1</sub> = <i>u&#772;</i><sub>0:T&minus;1</sub> + <i class="hat">&Delta;</i></span>
+      <span class="eq__sep">,</span>
+      <span><i class="hat">&Delta;</i> = <i>G</i><sub><i>&theta;</i></sub>(<i>z</i><sub>0</sub>&thinsp;|&thinsp;<i>c</i>),&ensp;<i>z</i><sub>0</sub> ~ <i>N</i>(0,&thinsp;<b>I</b>),&ensp;<i>c</i> = (<i>x&#772;</i><sub>0:T</sub>,&thinsp;<i>o</i>)</span>
+    </div>
+    <p class="note">The backbone is a temporal U-Net with FiLM conditioning, sampled with an Euler ODE solver. Because GNR learns where feasible trajectories lie, it can also solve demonstrations on which its seed generator fails.</p>
+    <figure class="pfig pfig--wide">
+      <picture><source type="image/webp" srcset="assets/paper/fig2.webp?v=2d8c8c1c"><img src="assets/paper/fig2.png?v=59073b18" width="1600" height="796" loading="lazy" decoding="async" data-gallery data-title="The human-to-robot data engine" alt="The human-to-robot data engine: (a) real-to-sim and retargeting from motion-capture or egocentric recordings through preparation, real-to-sim plus IK, and physics refinement with DIAL-MPC to candidate trajectories with contact forces; (b) data expansion through a discovery phase and a scaling phase with rejection sampling, whose human-robot pairs train GNR to accelerate retargeting."></picture>
+      <figcaption><b>The human-to-robot data engine.</b> (a) Motion-capture recordings (difficulty axis) and egocentric demonstrations (diversity axis) become candidate robot trajectories with simulation-derived contact-force labels. (b) Discovery identifies retargetable segments; scaling expands their physical and geometric coverage. Both filter candidates with the same success criterion, and the resulting pairs train GNR to accelerate subsequent retargeting.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="results" class="sec">
+  <div class="wrap">
+    <div class="sec__head wrap--text">
+      <p class="eyebrow">Results</p>
+      <h2 class="sec__title">Why GNR is better</h2>
+      <p class="lead">The simulation experiments compare retargeting success, test-time scaling, and compute cost. The physical robot rollout is shown separately in <a href="#policy">Policy Sim-to-Real</a>.</p>
+    </div>
+
+
+    <article class="claim" id="r-effective">
+      <div class="claim__head">
+        <p class="claim__n">01</p>
+        <div><h3 class="claim__title">More success with 8.5% of the samples</h3>
+        <p class="claim__text">On 1,000 out-of-distribution HOT3D test demonstrations, each with an unseen object (203), source grasp (338) or geometry variant (459): 272 MPC-success and 728 MPC-failure.</p></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>56.2%</b><span>GNR success with 256 samples, vs. 27.2% for DIAL-MPC with 3,000 samples.</span></div>
+        <div class="kpi"><b>42.6%</b><span>of the demonstrations on which MPC fails are solved by GNR at <i>S</i>&nbsp;=&nbsp;256.</span></div>
+        <div class="kpi"><b>7.6&times;</b><span>lower CPU cost per trajectory than its seed generator DIAL-MPC.</span></div>
+      </div>
+
+      <div class="compare" data-compare="hot3d" hidden>
+        <div class="compare__head">
+          <div><h4 class="compare__title">MPC fails, GNR succeeds</h4>
+          <p class="compare__sub">Held-out HOT3D test demonstrations on which DIAL-MPC (3,000 samples) fails and GNR succeeds within <i>S</i>&nbsp;=&nbsp;256 samples (shown: the first of the 256 samples to pass); both re-simulated from stored controls. Across the 1,000-demo test set: 56.2% vs. 27.2%. Shown at half speed, from just after the grasp is formed; lines trace the fingertips over the last 0.7&nbsp;s (grey: MPC, blue: GNR).</p></div>
+          <div class="chips" aria-label="Demonstration" data-chips></div>
+        </div>
+        <div class="compare__views" data-views></div>
+        <div class="compare__ctrl"><button class="cbtn" type="button" data-act="toggle" aria-label="Pause"><span class="i-play"></span></button><button class="cbtn" type="button" data-act="restart" aria-label="Restart together"><span class="i-restart"></span></button><span class="compare__hint">The three views share one timeline and start together.</span></div>
+      </div>
+      <figure class="tbl">
+      <figcaption><b>Performance on HOT3D.</b> 1,000 out-of-distribution test demonstrations: 272 MPC-success and 728 MPC-failure. CPU core-s: mean per demonstration. Success rate (SR, %) overall and on the MPC-success and MPC-failure splits.</figcaption>
+      <div class="scroll" tabindex="0" role="region" aria-label="HOT3D results table, scrollable">
+        <table>
+          <thead><tr><th scope="col">Method</th><th scope="col">Samples</th><th scope="col">CPU core&#8209;s&nbsp;&darr;</th><th scope="col">Overall&nbsp;&uarr;</th><th scope="col">MPC&#8209;succ<span class="th-long">ess</span>&nbsp;&uarr;</th><th scope="col">MPC&#8209;fail<span class="th-long">ure</span>&nbsp;&uarr;</th></tr></thead>
+          <tbody>
+            <tr class="ref"><td>IK</td><td>1</td><td>39.0</td><td>18.30</td><td>50.00</td><td>6.46</td></tr>
+            <tr class="ref"><td>DIAL-MPC<sup>&dagger;</sup></td><td>3,000</td><td>2689.3</td><td>27.20</td><td>100.00</td><td>0.00</td></tr>
+            <tr><td>MPPI</td><td>3,000</td><td>1849.6</td><td>27.70</td><td>71.32</td><td>11.40</td></tr>
+            <tr><td>iCEM</td><td>3,000</td><td>3862.1</td><td>34.70</td><td>78.68</td><td>18.27</td></tr>
+            <tr><td>CMA-ES</td><td>3,000</td><td>2912.7</td><td>32.00</td><td>72.79</td><td>16.76</td></tr>
+            <tr class="gnr gnr--first"><td>GNR</td><td>1</td><td>48.9</td><td>18.10</td><td>48.16</td><td>6.87</td></tr>
+            <tr class="gnr"><td>GNR</td><td>64</td><td>90.9</td><td>49.60</td><td>88.97</td><td>34.89</td></tr>
+            <tr class="gnr"><td>GNR</td><td>128</td><td>178.6</td><td>52.20</td><td>90.07</td><td>38.05</td></tr>
+            <tr class="gnr best"><td>GNR</td><td>256</td><td>354.1</td><td>56.20</td><td>92.65</td><td>42.58</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote"><sup>&dagger;</sup> DIAL-MPC generates GNR's training data and defines the MPC-success and MPC-failure splits, so its split success rates are 100% and 0% by construction.</p>
+      <p class="tnote">Samples: complete trajectories per demonstration for GNR; samples per iteration &times; MPC iterations for the sampling-based methods.</p>
+    </figure>
+    </article>
+
+
+    <article class="claim" id="r-generalizes">
+      <div class="claim__head">
+        <p class="claim__n">02</p>
+        <div><h3 class="claim__title">It generalizes, and more samples help</h3>
+        <p class="claim__text">GNR success on the three out-of-distribution subsets as the number of samples grows from 1 to 256. At <i>S</i>&nbsp;=&nbsp;256, GNR also solves 31.9&ndash;58.4% of the demonstrations that MPC fails to solve with 3,000 samples.</p></div>
+      </div>
+      <figure class="chart">
+        <figcaption class="chart__cap"><b>GNR success rate (%)</b> on the 1,000-demo HOT3D test set. <span class="key"><i class="key__dot key__dot--a"></i><i>S</i>&nbsp;=&nbsp;1</span> <span class="key"><i class="key__dot key__dot--b"></i><i>S</i>&nbsp;=&nbsp;256</span></figcaption>
+        <div class="dumbbell" role="img" aria-label="GNR success rises from 12.81% to 44.33% on OOD objects, from 10.06% to 42.90% on OOD grasps, and from 26.36% to 71.24% on OOD geometry as S increases from 1 to 256.">
+          <div class="db" style="--a:12.81;--b:44.33" title="OOD object: 12.81% at S=1, 44.33% at S=256"><span class="db__label">Unseen object</span><span class="db__track"><i class="db__line"></i><i class="db__dot db__dot--a"></i><i class="db__dot db__dot--b"></i><em class="db__va">12.81</em><em class="db__vb">44.33</em></span></div>
+          <div class="db" style="--a:10.06;--b:42.90" title="OOD grasp: 10.06% at S=1, 42.90% at S=256"><span class="db__label">Unseen grasp</span><span class="db__track"><i class="db__line"></i><i class="db__dot db__dot--a"></i><i class="db__dot db__dot--b"></i><em class="db__va">10.06</em><em class="db__vb">42.90</em></span></div>
+          <div class="db" style="--a:26.36;--b:71.24" title="OOD geometry: 26.36% at S=1, 71.24% at S=256"><span class="db__label">Unseen geometry</span><span class="db__track"><i class="db__line"></i><i class="db__dot db__dot--a"></i><i class="db__dot db__dot--b"></i><em class="db__va">26.36</em><em class="db__vb">71.24</em></span></div>
+          <div class="db__axis" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+        </div>
+        <p class="chart__note">On MPC-success demonstrations, the mean success across subsets rises from 46.2% at <i>S</i>&nbsp;=&nbsp;1 to 93.2% at <i>S</i>&nbsp;=&nbsp;256.</p>
+      </figure>
+    </article>
+
+
+    <article class="claim" id="r-scales">
+      <div class="claim__head">
+        <p class="claim__n">03</p>
+        <div><h3 class="claim__title">It scales a dataset beyond what MPC solves</h3>
+        <p class="claim__text">From 780 source motions across 33 objects, the data engine builds 360k augmented human demonstrations. DIAL-MPC succeeds on 95k of them (26.43%) and needs 390k CPU core-h, equivalent to 31.7 days on 512 CPU cores. GNR trained on 28k seed trajectories is applied to the 360k demonstrations with up to <i>S</i>&nbsp;=&nbsp;256 samples, only 8.5% of MPC's sampling budget.</p></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>127,136</b><span>MPC-failure demonstrations solved by GNR (48.01% of 264k). On the MPC-success demonstrations GNR achieves 89.30%.</span></div>
+        <div class="kpi"><b>223k</b><span>feasible trajectories across 3.3k geometries, including the 95k MPC successes.</span></div>
+        <div class="kpi"><b>2.62&times;</b><span>reduction relative to DIAL-MPC: with 28k MPC seeds, GNR generates 215k trajectories at 148.7k CPU core-h, while DIAL-MPC alone requires 390k CPU core-h to retarget the 360k demonstrations (95k successes).</span></div>
+      </div>
+      <figure class="chart">
+        <figcaption class="chart__cap"><b>Dataset-generation compute on HOT3D</b> (thousands of CPU core-h, including MPC seed generation; GNR costs estimated from per-trajectory costs) and coverage of the 360k demonstrations.</figcaption>
+        <div class="bars bars--h" role="img" aria-label="All MPC: 390.043 thousand core-h, 26.4% coverage. All MPC data plus GNR at S=256: 416.090, 61.6%. 28k MPC seeds plus GNR at S=256: 148.735, 59.7%.">
+          <div class="hb hb--ctx" style="--v:390.043;--max:416.09"><span class="hb__label">All MPC</span><span class="hb__bar"><i></i></span><span class="hb__val">390.043<small>26.4% coverage</small></span></div>
+          <div class="hb hb--ctx" style="--v:416.090;--max:416.09"><span class="hb__label">All MPC data + GNR <i>S</i>=256</span><span class="hb__bar"><i></i></span><span class="hb__val">416.090<small>61.6% coverage</small></span></div>
+          <div class="hb hb--gnr" style="--v:148.735;--max:416.09"><span class="hb__label">28k MPC seeds + GNR <i>S</i>=256</span><span class="hb__bar"><i></i></span><span class="hb__val">148.735<small>59.7% coverage</small></span></div>
+        </div>
+      </figure>
+    </article>
+
+
+    <article class="claim" id="r-quality">
+      <div class="claim__head">
+        <p class="claim__n">04</p>
+        <div><h3 class="claim__title">Millimeter precision, long horizons: where IK fails</h3>
+        <p class="claim__text">Demonstrations recorded with 15 motion capture cameras and an instrumented wearable exoskeleton. <b>ShapeFilter</b> inserts a cross-shaped part into a matching hole with a tolerance of 1.96&nbsp;mm (3,037 demonstrations augmented from 605). <b>Precision Assembly</b> grasps, transports, aligns and screws a knob onto a threaded post; its 358 demonstrations average 29&nbsp;s, and success requires horizontal error below 1&nbsp;mm, screwing down at least 8&nbsp;mm and axis error below 0.003&nbsp;rad.</p></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>3.7% &rarr; 99.3%</b><span>ShapeFilter open-loop success: IK vs. GNR at <i>S</i>&nbsp;=&nbsp;256 (52.4% at <i>S</i>&nbsp;=&nbsp;1, 97.4% at <i>S</i>&nbsp;=&nbsp;64).</span></div>
+        <div class="kpi"><b>33.3%</b><span>fewer samples on Precision Assembly: with GNR initialization, MPC reaches 92.2% using 2,296 samples instead of the 3,440 used by vanilla MPC. Open loop, IK reaches 0% and GNR 4.7% at <i>S</i>&nbsp;=&nbsp;256.</span></div>
+      </div>
+      <div class="studio" data-studio data-keys="ik,gnr,gnr_mpc,mpc">
+        <div class="compare__head">
+          <div><h4 class="compare__title" data-studio-title>IK, open-loop GNR and GNR + MPC on the same demonstration</h4>
+          <p class="compare__sub">Playing in sync. Switch to <b>Wipe</b> to drag between two of them.</p></div>
+          <div class="studio__opts">
+            <div class="chips" aria-label="Demonstration" data-chips></div>
+            <div class="seg" role="group" aria-label="View mode"><button type="button" data-mode="grid" aria-pressed="true">Grid</button><button type="button" data-mode="wipe" aria-pressed="false">Wipe</button></div>
+          </div>
+        </div>
+        <div class="studio__stage" data-stage></div>
+        <div class="studio__wipeopts" data-wipeopts hidden>
+          <label>Left <select data-left></select></label><label>Right <select data-right></select></label>
+        </div>
+        <div class="scrub">
+          <button class="cbtn" type="button" data-act="toggle" aria-label="Pause"><span class="i-play"></span></button>
+          <input class="scrub__range" type="range" min="0" max="1000" value="0" step="1" aria-label="Scrub all views" data-scrub>
+          <span class="scrub__time" data-time>0.0 s</span>
+        </div>
+        <p class="studio__note">Held-out test demonstrations. IK fails open loop on both tasks. On ShapeFilter, a single GNR sample succeeds open loop, and GNR + MPC (one GNR sample + 500 MPC samples) succeeds as well. On Precision Assembly, open-loop GNR also fails, while GNR-initialized MPC and vanilla MPC both succeed; their sample budgets are compared in the chart below (2,296 vs. 3,440 samples to reach 92.2%). ShapeFilter plays at 2&times; speed, Precision Assembly at 3&times; speed. On Precision Assembly, success requires horizontal error below 1&nbsp;mm, screwing down by at least 8&nbsp;mm, and axis error below 0.003&nbsp;rad.</p>
+      </div>
+    </article>
+
+
+    <article class="claim" id="r-efficiency">
+      <div class="claim__head">
+        <p class="claim__n">05</p>
+        <div><h3 class="claim__title">Similar success, a fraction of the compute</h3>
+        <p class="claim__text">MPC also solves most precision demonstrations, but needs far more samples and CPU time. GNR reduces per-trajectory CPU cost by 14.9&times; on ShapeFilter and 3.0&times; on Precision Assembly.</p></div>
+      </div>
+      <div class="chartgrid">
+        <figure class="chart chart--card">
+          <figcaption class="chart__cap"><b>ShapeFilter</b> · CPU core-s per trajectory</figcaption>
+          <div class="bars bars--h" role="img" aria-label="ShapeFilter: MPC 10,124 core-s with 2,500 samples at 93.7% success; GNR 678 core-s with 77 samples at 94.7% success; 14.9 times less.">
+            <div class="hb hb--ctx" style="--v:10124;--max:10124"><span class="hb__label">MPC · 2,500 samples</span><span class="hb__bar"><i></i></span><span class="hb__val">10,124<small>93.7% success</small></span></div>
+            <div class="hb hb--gnr" style="--v:678;--max:10124"><span class="hb__label">GNR · 77 samples</span><span class="hb__bar"><i></i></span><span class="hb__val">678<small>94.7% success</small></span></div>
+          </div>
+          <p class="chart__big">14.9&times;</p>
+        </figure>
+        <figure class="chart chart--card">
+          <figcaption class="chart__cap"><b>Precision Assembly</b> · CPU core-s per trajectory</figcaption>
+          <div class="bars bars--h" role="img" aria-label="Precision Assembly: MPC 795,777 core-s with 3,440 samples at 92.2% success; GNR plus MPC 266,199 core-s with 1,976 samples at 89.1% success; 3.0 times less.">
+            <div class="hb hb--ctx" style="--v:795777;--max:795777"><span class="hb__label">MPC · 3,440 samples</span><span class="hb__bar"><i></i></span><span class="hb__val">795,777<small>92.2% success</small></span></div>
+            <div class="hb hb--gnr" style="--v:266199;--max:795777"><span class="hb__label">GNR + MPC · 1,976 samples</span><span class="hb__bar"><i></i></span><span class="hb__val">266,199<small>89.1% success</small></span></div>
+          </div>
+          <p class="chart__big">3.0&times;</p>
+        </figure>
+        <figure class="chart chart--card">
+          <figcaption class="chart__cap"><b>Precision Assembly</b> · MPC samples to reach 92.2% success</figcaption>
+          <div class="bars bars--h" role="img" aria-label="Precision Assembly: MPC reaches 92.2% with 3,440 samples; GNR plus MPC with 2,296 samples, a 33.3% reduction.">
+            <div class="hb hb--ctx" style="--v:3440;--max:3440"><span class="hb__label">MPC from IK</span><span class="hb__bar"><i></i></span><span class="hb__val">3,440</span></div>
+            <div class="hb hb--gnr" style="--v:2296;--max:3440"><span class="hb__label">GNR + MPC</span><span class="hb__bar"><i></i></span><span class="hb__val">2,296</span></div>
+          </div>
+          <p class="chart__big">33.3% fewer</p>
+        </figure>
+        <figure class="chart chart--card">
+          <figcaption class="chart__cap"><b>Whole datasets</b> · thousands of CPU core-h, including MPC seeds</figcaption>
+          <div class="bars bars--h" role="img" aria-label="ShapeFilter, 3,037 demonstrations: MPC 8.541 thousand core-h at 93.70%, 50 seeds plus GNR 0.766 at 94.82%, 11.2 times less. Precision Assembly, 358 demonstrations: MPC 79.136 at 92.19%, 100 seeds plus GNR plus MPC 44.517 at 92.12%, 1.8 times less.">
+            <div class="hb hb--ctx" style="--v:8.541;--max:8.541"><span class="hb__label">ShapeFilter · MPC</span><span class="hb__bar"><i></i></span><span class="hb__val">8.541<small>93.70%</small></span></div>
+            <div class="hb hb--gnr" style="--v:0.766;--max:8.541"><span class="hb__label">ShapeFilter · 50 seeds + GNR</span><span class="hb__bar"><i></i></span><span class="hb__val">0.766<small>94.82% · 11.2&times;</small></span></div>
+            <div class="hb hb--ctx" style="--v:79.136;--max:79.136"><span class="hb__label">Precision Assembly · MPC</span><span class="hb__bar"><i></i></span><span class="hb__val">79.136<small>92.19%</small></span></div>
+            <div class="hb hb--gnr" style="--v:44.517;--max:79.136"><span class="hb__label">Precision Assembly · 100 seeds + GNR + MPC</span><span class="hb__bar"><i></i></span><span class="hb__val">44.517<small>92.12% · 1.8&times;</small></span></div>
+          </div>
+          <p class="chart__note">Bars are scaled within each task.</p>
+        </figure>
+      </div>
+      <p class="claim__foot">Test-time scaling complements data scaling: with only 50 training demonstrations, ShapeFilter success rises from 11.5% at <i>S</i>&nbsp;=&nbsp;1 to 99.5% at <i>S</i>&nbsp;=&nbsp;256.</p>
+      <details class="paper-tables">
+        <summary>Show the paper's tables</summary>
+        <div class="tables">
+      <figure class="tbl">
+        <figcaption><b>Comparing efficiency and SR using MPC and GNR</b> on the precision tasks (per trajectory).</figcaption>
+        <div class="scroll" tabindex="0" role="region" aria-label="Precision-task efficiency table, scrollable"><table>
+          <thead><tr><th>Method</th><th>Samples</th><th>Success %&nbsp;&uarr;</th><th>CPU core&#8209;s&nbsp;&darr;</th><th>Saving (computed)</th></tr></thead>
+          <tbody><tr class="grp"><td colspan="5">ShapeFilter</td></tr><tr><td>MPC</td><td>2,500</td><td>93.7</td><td>10,124</td><td></td></tr><tr class="gnr"><td>GNR</td><td>77</td><td>94.7</td><td>678</td><td>14.9&times;</td></tr><tr class="grp"><td colspan="5">Precision Assembly</td></tr><tr><td>MPC</td><td>3,440</td><td>92.2</td><td>795,777</td><td></td></tr><tr class="gnr"><td>GNR + MPC</td><td>1,976</td><td>89.1</td><td>266,199</td><td>3.0&times;</td></tr></tbody>
+        </table></div>
+        <p class="tnote">Saving: ratio of the CPU core-s columns, as stated in the paper text. With a larger budget of 3,000 samples (<i>M</i>&nbsp;=&nbsp;6, <i>n<sub>s</sub></i>&nbsp;=&nbsp;500), MPC reaches 92.9% on ShapeFilter; open-loop GNR exceeds it at <i>S</i>&nbsp;=&nbsp;64, using only 1.6% of its CPU cost.</p>
+      </figure>
+      <figure class="tbl">
+          <figcaption><b>Dataset-generation cost</b> in thousands of core-h, and coverage. GNR costs are estimated from per-trajectory costs.</figcaption>
+          <div class="scroll" tabindex="0" role="region" aria-label="Dataset-generation cost table, scrollable"><table>
+            <thead><tr><th>Task</th><th>Generation</th><th>MPC data</th><th>GNR</th><th>Total</th><th>Coverage</th></tr></thead>
+            <tbody>
+              <tr><td>HOT3D</td><td>all MPC</td><td>390.043</td><td>&ndash;</td><td>390.043</td><td>26.4%</td></tr>
+              <tr><td>HOT3D</td><td>all MPC data + GNR <i>S</i>=256</td><td>390.043</td><td>26.047</td><td>416.090</td><td>61.6%</td></tr>
+              <tr class="gnr"><td>HOT3D</td><td>28k MPC seeds + GNR <i>S</i>=256</td><td>116.112</td><td>32.623</td><td>148.735</td><td>59.7%</td></tr>
+              <tr><td>ShapeFilter</td><td>all MPC</td><td>8.541</td><td>&ndash;</td><td>8.541</td><td>93.70%</td></tr>
+              <tr class="gnr"><td>ShapeFilter</td><td>50 MPC seeds + GNR</td><td>0.203</td><td>0.562</td><td>0.766</td><td>94.82%</td></tr>
+              <tr><td>Precision Assembly</td><td>all MPC</td><td>79.136</td><td>&ndash;</td><td>79.136</td><td>92.19%</td></tr>
+              <tr class="gnr"><td>Precision Assembly</td><td>100 MPC seeds + GNR + MPC</td><td>25.439</td><td>19.078</td><td>44.517</td><td>92.12%</td></tr>
+            </tbody>
+          </table></div>
+        </figure>
+        </div>
+      </details>
+    </article>
+
+
+    <article class="claim" id="r-embodiment">
+      <div class="claim__head">
+        <p class="claim__n">06</p>
+        <div><h3 class="claim__title">One model, five robot hands</h3></div>
+      </div>
+      <div class="embody">
+      <p class="prose">On SPIDER's public multi-embodiment benchmark, one GNR model trained on 147 trajectories spanning five robot hands (Ability, Allegro, Inspire, Schunk and XHand) is evaluated on 100 test trajectories, 20 per hand.</p>
+      <div class="bars" role="img" aria-label="Success on 100 test trajectories: GNR 90 percent at 128 samples, 93 percent at 256, 95 percent at 384; SPIDER 96 percent with 16,384 to 32,768 samples per optimization.">
+        <div class="bar bar--gnr" style="--v:90"><span>GNR, <i>S</i>&nbsp;=&nbsp;128</span><i></i><b>90%</b></div>
+        <div class="bar bar--gnr" style="--v:93"><span>GNR, <i>S</i>&nbsp;=&nbsp;256</span><i></i><b>93%</b></div>
+        <div class="bar bar--gnr" style="--v:95"><span>GNR, <i>S</i>&nbsp;=&nbsp;384</span><i></i><b>95%</b></div>
+        <div class="bar bar--ref" style="--v:96"><span>SPIDER, 16,384&ndash;32,768 samples</span><i></i><b>96%</b></div>
+      </div>
+      <p class="tnote">Samples are counted per demonstration for GNR and give the maximum budget per optimization for SPIDER.</p>
+    </div>
+    </article>
+
+    <div class="paperfigs">
+      <p class="eyebrow">Figures from the paper</p>
+      <div class="paperfigs__grid">
+        <figure class="pfig">
+        <picture><source type="image/webp" srcset="assets/paper/fig_gnr_axis_outcome_scaling.webp?v=9985927d"><img src="assets/paper/fig_gnr_axis_outcome_scaling.png?v=9b44a604" width="1200" height="572" loading="lazy" decoding="async" data-gallery data-title="Generalization on HOT3D" alt="Three line plots of GNR success rate versus number of samples S on HOT3D for OOD object, OOD grasp, and OOD geometry subsets, each showing overall, MPC-success, and MPC-failure curves."></picture>
+        <figcaption><b>Generalization.</b> GNR success versus the number of samples <i>S</i> on the three OOD subsets, for MPC-success, MPC-failure and all demonstrations.</figcaption>
+      </figure>
+        <figure class="pfig pfig--wide">
+      <picture><source type="image/webp" srcset="assets/paper/fig_hot3d_large_scale_evaluation.webp?v=a9aea74f"><img src="assets/paper/fig_hot3d_large_scale_evaluation.png?v=8adc138f" width="1800" height="574" loading="lazy" decoding="async" data-gallery data-title="Large-scale HOT3D evaluation" alt="GNR test-time scaling on 360,150 HOT3D demonstrations, split into MPC-success, MPC-failure, and their union, overall and across three OOD subsets. At 256 samples, overall success is 58.9 percent, MPC-success is 89.3 percent, and MPC-failure is 48.0 percent."></picture>
+      <figcaption><b>Test-time scaling on 360k HOT3D demonstrations</b> (95k MPC-success and 264k MPC-failure); the curves show GNR success across three OOD subsets. At <i>S</i>&nbsp;=&nbsp;256, GNR solves 212,279 of the 360,150 demonstrations (58.94%): 89.30% of MPC-success and 48.01% of MPC-failure demonstrations.</figcaption>
+    </figure>
+        <figure class="pfig"><picture><source type="image/webp" srcset="assets/paper/fig_difficulty_results_shapefilter.webp?v=5781d9ca"><img src="assets/paper/fig_difficulty_results_shapefilter.png?v=0cd1e258" width="1000" height="485" loading="lazy" decoding="async" data-gallery data-title="ShapeFilter: open loop and GNR + MPC" alt="ShapeFilter: open-loop GNR success versus samples S rising to 99.3 percent, with IK at 3.7 percent; and GNR plus MPC versus MPC success as a function of MPC samples."></picture><figcaption><b>ShapeFilter: open loop and warm start.</b> Open-loop GNR improves with the number of samples <i>S</i>, and GNR warm starts reduce MPC sampling requirements.</figcaption></figure>
+        <figure class="pfig"><picture><source type="image/webp" srcset="assets/paper/fig_difficulty_efficiency_shapefilter.webp?v=770b493b"><img src="assets/paper/fig_difficulty_efficiency_shapefilter.png?v=eb819b72" width="1000" height="556" loading="lazy" decoding="async" data-gallery data-title="ShapeFilter: data scaling and efficiency" alt="ShapeFilter: GNR success versus samples S for seed dataset sizes from 50 to 2,448; and compute reduction versus dataset size, 11.2× at 3,037 demonstrations."></picture><figcaption><b>ShapeFilter: data scaling and efficiency.</b> Left: test-time scaling of GNR trained with different seed dataset sizes <i>N</i>. Right: CPU cost reduction as the dataset grows; costs include MPC seed generation and GNR generation.</figcaption></figure>
+        <figure class="pfig">
+        <picture><source type="image/webp" srcset="assets/paper/fig_difficulty_results_precision-assembly.webp?v=6b18d74c"><img src="assets/paper/fig_difficulty_results_precision-assembly.png?v=71dbdbab" width="1000" height="485" loading="lazy" decoding="async" data-gallery data-title="Precision Assembly: open loop and GNR + MPC" alt="Precision Assembly: open-loop GNR success versus samples S reaching 4.7 percent, with IK at 0; and GNR plus MPC reaching 92.2 percent with fewer MPC samples than MPC alone."></picture>
+        <figcaption><b>Precision Assembly: open loop and warm start.</b> Open-loop sampling alone is insufficient, while GNR-initialized MPC (GNR + MPC) outperforms MPC from scratch at a matched sampling budget.</figcaption>
+      </figure>
+        <figure class="pfig">
+        <picture><source type="image/webp" srcset="assets/paper/fig_difficulty_efficiency_precision-assembly.webp?v=7d4db501"><img src="assets/paper/fig_difficulty_efficiency_precision-assembly.png?v=c0166e48" width="1000" height="556" loading="lazy" decoding="async" data-gallery data-title="Precision Assembly: data scaling and efficiency" alt="Precision Assembly: GNR plus MPC success versus MPC samples for seed dataset sizes 100, 200, and 294 compared with MPC; and compute reduction versus dataset size, up to 1.8 times."></picture>
+        <figcaption><b>Precision Assembly: data scaling and efficiency.</b> Left: GNR + MPC with different seed dataset sizes <i>N</i>. Right: CPU cost reduction as the dataset grows; costs include MPC seed generation and GNR generation.</figcaption>
+      </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dataset" class="sec sec--tint">
+  <div class="wrap">
+    <div class="sec__head wrap--text">
+      <h2 class="sec__title">Dataset</h2>
+      <p class="lead">Applied within the real-to-sim data engine, GNR helps turn HOT3D egocentric recordings into 223k paired human and feasible robot trajectories across 3.3k object geometries, plus 3.4k retargeted trajectories for the two millimeter-precision tasks. Every tile is a GNR result; tiles play as they scroll into view. Open one to see the robot rollout next to its human source.</p>
+    </div>
+    <div class="wall__filters" data-filters>
+      <div class="chips" role="group" aria-label="Filter by axis" data-fgroup="axis"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="div" aria-pressed="false">Diversity &middot; HOT3D</button><button type="button" data-filter="dif" aria-pressed="false">Difficulty &middot; ShapeFilter, Precision Assembly</button></div>
+    </div>
+    <ul class="wall" data-wall></ul>
+    <p class="wall__more" data-more hidden><button class="cbtn cbtn--txt" type="button"></button></p>
+    <noscript><p class="note">The demonstration wall needs JavaScript. The clips are in <code>assets/video/</code>.</p></noscript>
+    <p class="note">HOT3D clips include egocentric recordings and simulated robot rollouts. Precision-task clips show simulated retargeting of demonstrations captured with a wearable exoskeleton.</p>
+  </div>
+</section>
+
+<footer class="foot"><div class="wrap"><p>Anonymous review material</p></div></footer>
+</main>
+
+
+<script type="application/json" id="demo-data">
+[
+{"id":"dino_toy","set":"hot3d","group":"gnr","title":"Toy dinosaur","obj":"Toy dinosaur","cat":"Toys","main":"gnr","speed":"0.5×","views":[{"k":"egocentric","slot":"hot3d/dino_toy/egocentric","r":"1x1"},{"k":"gnr","slot":"hot3d/dino_toy/gnr","r":"1x1","budget":"S = 256"}]},
+{"id":"ds-d01_coffee_pot_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Coffee pot","obj":"Coffee pot","cat":"Kitchen","main":"gnr","speed":"0.5×","frames":54,"fps":15,"views":[{"k":"egocentric","slot":"dataset/d01_coffee_pot_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/d01_coffee_pot_gnr/robot","r":"1x1"}]},
+{"id":"pair-carton_oj","set":"hot3d","group":"pair","wall":false,"title":"Juice carton","obj":"Juice carton","cat":"Cartons and boxes","main":"gnr","speed":"0.5×","views":[{"k":"egocentric","slot":"hot3d_pairs/carton_oj/egocentric","r":"1x1"},{"k":"mpc","slot":"hot3d_pairs/carton_oj/mpc","r":"1x1","res":"no","budget":"3,000 samples"},{"k":"gnr","slot":"hot3d_pairs/carton_oj/gnr","r":"1x1","res":"ok","budget":"S = 256, first to pass"}]},
+{"id":"pair-can_parmesan","set":"hot3d","group":"pair","wall":false,"title":"Cheese can","obj":"Cheese can","cat":"Cans","main":"gnr","speed":"0.5×","views":[{"k":"egocentric","slot":"hot3d_pairs/can_parmesan/egocentric","r":"1x1"},{"k":"mpc","slot":"hot3d_pairs/can_parmesan/mpc","r":"1x1","res":"no","budget":"3,000 samples"},{"k":"gnr","slot":"hot3d_pairs/can_parmesan/gnr","r":"1x1","res":"ok","budget":"S = 256, first to pass"}]},
+{"id":"ds-b01_carton_oj_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Juice carton","obj":"Juice carton","cat":"Cartons and boxes","main":"gnr","speed":"0.5×","frames":48,"fps":15,"views":[{"k":"egocentric","slot":"dataset/b01_carton_oj_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/b01_carton_oj_gnr/robot","r":"1x1"}]},
+{"id":"ds-c05_carton_milk_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Milk carton","obj":"Milk carton","cat":"Cartons and boxes","main":"gnr","speed":"0.5×","frames":109,"fps":15,"views":[{"k":"egocentric","slot":"dataset/c05_carton_milk_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/c05_carton_milk_gnr/robot","r":"1x1"}]},
+{"id":"ds-c04_can_soup_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Soup can","obj":"Soup can","cat":"Cans","main":"gnr","speed":"0.5×","frames":68,"fps":15,"views":[{"k":"egocentric","slot":"dataset/c04_can_soup_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/c04_can_soup_gnr/robot","r":"1x1"}]},
+{"id":"ds-c01_bottle_ranch_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Dressing bottle","obj":"Dressing bottle","cat":"Bottles","main":"gnr","speed":"0.5×","frames":79,"fps":15,"views":[{"k":"egocentric","slot":"dataset/c01_bottle_ranch_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/c01_bottle_ranch_gnr/robot","r":"1x1"}]},
+{"id":"ds-c06_can_parmesan_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Cheese can","obj":"Cheese can","cat":"Cans","main":"gnr","speed":"0.5×","frames":87,"fps":15,"views":[{"k":"egocentric","slot":"dataset/c06_can_parmesan_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/c06_can_parmesan_gnr/robot","r":"1x1"}]},
+{"id":"ds-c02_holder_gray_gnr_left","set":"hot3d","group":"gnr","ds":true,"title":"Wooden pen holder","obj":"Wooden pen holder","cat":"Holders","main":"gnr","speed":"0.5×","frames":42,"fps":15,"views":[{"k":"egocentric","slot":"dataset/c02_holder_gray_gnr_left/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/c02_holder_gray_gnr_left/robot","r":"1x1"}]},
+{"id":"ds-08_dumbbell_5lb_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Dumbbell","obj":"Dumbbell","cat":"Other","main":"gnr","speed":"0.5×","frames":34,"fps":15,"views":[{"k":"egocentric","slot":"dataset/08_dumbbell_5lb_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/08_dumbbell_5lb_gnr/robot","r":"1x1"}]},
+{"id":"ds-09_cellphone_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Phone","obj":"Phone","cat":"Desk items","main":"gnr","speed":"0.5×","frames":43,"fps":15,"views":[{"k":"egocentric","slot":"dataset/09_cellphone_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/09_cellphone_gnr/robot","r":"1x1"}]},
+{"id":"ds-c03_whiteboard_eraser_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Whiteboard eraser","obj":"Whiteboard eraser","cat":"Desk items","main":"gnr","speed":"0.5×","frames":98,"fps":15,"views":[{"k":"egocentric","slot":"dataset/c03_whiteboard_eraser_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/c03_whiteboard_eraser_gnr/robot","r":"1x1"}]},
+{"id":"ds-b07_puzzle_toy_gnr","set":"hot3d","group":"gnr","ds":true,"title":"Puzzle cube","obj":"Puzzle cube","cat":"Toys","main":"gnr","speed":"0.5×","frames":27,"fps":15,"views":[{"k":"egocentric","slot":"dataset/b07_puzzle_toy_gnr/egocentric","r":"1x1"},{"k":"gnr","slot":"dataset/b07_puzzle_toy_gnr/robot","r":"1x1"}]},
+{"id":"sf-ep184","set":"shapefilter","wide":true,"title":"ShapeFilter · demo 184","main":"gnr","lb":["gnr","gnr_mpc"],"speed":"2×","views":[{"k":"ik","slot":"shapefilter/ep184/ik","r":"16x9","res":"no","budget":"open loop"},{"k":"gnr","slot":"shapefilter/ep184/gnr","r":"16x9","res":"ok","budget":"1 sample"},{"k":"gnr_mpc","slot":"shapefilter/ep184/gnr_mpc","r":"16x9","res":"ok","budget":"1 + 500 MPC samples"}]},
+{"id":"precision-assembly-ep208","set":"precision-assembly","wide":true,"title":"Precision Assembly · demo 208","main":"gnr_mpc","lb":["gnr_mpc"],"speed":"3×","tile":"precision-assembly/ep208/gnr_mpc_tile","views":[{"k":"ik","slot":"precision-assembly/ep208/ik","r":"16x9","res":"no","budget":"open loop"},{"k":"gnr","slot":"precision-assembly/ep208/gnr","r":"16x9","res":"no","budget":"1 sample, open loop"},{"k":"gnr_mpc","slot":"precision-assembly/ep208/gnr_mpc","r":"16x9","res":"ok"},{"k":"mpc","slot":"precision-assembly/ep208/mpc","r":"16x9","res":"ok"}]}
+]
+</script>
+</template>
+
+<script>
+// Full-site mode clones the inert template; in preview mode no research media, players or figures load.
+if (window.GNR_SITE && window.GNR_SITE.fullSite) {
+  var research = document.getElementById('full-site-content');
+  research.replaceWith(research.content.cloneNode(true));
+}
+</script>
+</body>
+</html>
