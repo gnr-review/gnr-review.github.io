@@ -1,6 +1,4 @@
-/* GNR project page. One stylesheet, no dependencies.
-   Premium-minimal system: one sans family (Inter) at a large scale, generous white space, neutral palette
-   with ONE accent (deep blue). Chart roles: GNR = accent, MPC = neutral context grey, IK = light grey. */
+
 
 
 :root{
@@ -47,7 +45,7 @@ html[data-site-mode="preview"] .skip{display:none}
 .linkbtn{padding:0;border:0;background:none;color:var(--link);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .eyebrow{margin:0 0 18px;color:var(--muted);font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 
-/* ---------- nav (appears after the hero) ---------- */
+
 .nav{position:fixed;inset:0 0 auto;z-index:80;height:var(--nav-h);background:color-mix(in srgb,var(--paper) 82%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid var(--line);transform:translateY(-102%);transition:transform .4s var(--ease)}
 .nav.is-shown,.nav:focus-within{transform:none}
 .is-film-pinned .nav:not(:focus-within){transform:translateY(-102%)}
@@ -62,7 +60,7 @@ html[data-site-mode="preview"] .skip{display:none}
 .nav__toggle{display:none}
 html[data-site-mode="preview"] .nav{display:none}
 
-/* ---------- hero: background video (precision tasks | HOT3D diversity wall) under a centre-weighted shade ---------- */
+
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:96px 32px 28px;text-align:center;background:#0b0c0e;color:#f5f6f7}
 .hero__stage{position:absolute;inset:0;z-index:-1;pointer-events:none}
 .hero__media{position:absolute;inset:0;z-index:0;pointer-events:none}
@@ -71,7 +69,7 @@ html[data-site-mode="preview"] .nav{display:none}
 .hero__media video.is-playing{opacity:1}
 .hero__stage::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 46% 58% at 50% 52%,rgba(11,12,14,.86),rgba(11,12,14,.74) 55%,rgba(11,12,14,.5) 100%),radial-gradient(ellipse 120% 100% at 50% 50%,transparent 55%,rgba(11,12,14,.55))}
 .hero__in{max-width:1100px;margin:auto;width:100%;container:hero / inline-size}
-/* Axis labels over the two halves of the background (precision tasks left, diversity wall right). */
+
 .hero__axes{position:absolute;inset:0;z-index:2;pointer-events:none;visibility:hidden}
 .hero__axes.is-placed{visibility:visible}
 .hero__axis{position:absolute;top:28px;display:flex;flex-direction:column;gap:6px;margin:0;text-transform:uppercase;line-height:1.2;text-align:left;text-shadow:0 1px 12px rgba(0,0,0,.65)}
@@ -85,16 +83,14 @@ html[data-site-mode="preview"] .nav{display:none}
 .eyebrow--hero{display:inline-flex;gap:10px;margin-bottom:28px;color:rgba(245,246,247,.86)}
 .eyebrow--hero a{color:inherit;text-decoration:none}
 .eyebrow--hero a:hover{color:#fff}
-/* One line wherever the title box is >= 600px wide: the name is 13.5em wide (Inter 650, -.04em), so 6.9cqi fills ~93% of the box.
-   The vw value is the fallback for browsers without container units. No nowrap: a wider fallback font wraps instead of clipping. */
+
 .hero__title{margin:0 auto 30px;font-size:clamp(2.6rem,calc((100vw - 64px) / 14.5),4.9rem);font-size:clamp(2.6rem,6.9cqi,4.9rem);font-weight:650;letter-spacing:-.04em;line-height:1.02;color:#fff;text-wrap:balance}
-/* Narrow boxes (phones): two lines, "Generative Neural" (8.1em) / "Retargeting", sized so the first line fits. */
+
 @container hero (max-width:600px){.hero__title{font-size:clamp(1.9rem,11.5cqi,2.6rem)}}
-/* G, N, R stand out by weight and brightness, not colour: the rest of the name is lighter and slightly dimmed. */
+
 .hero__name{font-weight:500;color:rgba(255,255,255,.76)}
 .hero__ini{font-weight:800;color:#fff}
 .hero__sub{display:block;margin-top:18px;font-size:clamp(1.1rem,2vw,1.55rem);font-weight:400;letter-spacing:-.015em;color:rgba(245,246,247,.78)}
-/* Logos: inline SVG (scripts/inline_logos.py; provenance in assets/logos/SOURCES.md), monochrome white. */
 .links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0}
 .pill{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(245,246,247,.28);background:transparent;color:#f5f6f7;font-size:.9rem;font-weight:600;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
 .pill svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -111,12 +107,12 @@ html[data-site-mode="full"] .hero__soon{display:none}
 .hero__scroll i{width:1px;height:34px;background:linear-gradient(rgba(245,246,247,.7),transparent);animation:scrollcue 2.4s var(--ease) infinite}
 @keyframes scrollcue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 html[data-site-mode="preview"] .hero__scroll{visibility:hidden}
-/* Pause control: keyboard reachable, visible only when focused. */
+
 .hero__pause{position:absolute;right:0;bottom:0;padding:8px 14px;border:1px solid rgba(245,246,247,.4);border-radius:999px;background:rgba(11,12,14,.6);color:#f5f6f7;font-size:.78rem;cursor:pointer;clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap}
 .hero__pause:focus,.hero__pause:focus-visible{clip-path:none;width:auto;height:auto}
 .hero :focus-visible{outline-color:#fff}
 
-/* ---------- sections ---------- */
+
 main{display:block}
 .intro{padding:150px 0 40px}
 .intro__text{max-width:980px;margin:0;font-size:clamp(1.6rem,3.1vw,2.5rem);font-weight:600;line-height:1.22;letter-spacing:-.03em;color:var(--ink);text-wrap:balance}
@@ -138,7 +134,7 @@ main{display:block}
 .note{max-width:var(--text-w);margin:28px 0 0;color:var(--muted);font-size:.95rem;text-wrap:pretty}
 .abstract p{margin:0;color:var(--body);font-size:1.12rem;line-height:1.8;text-wrap:pretty}
 
-/* ---------- cinematic film section ---------- */
+
 .filmsec{position:relative;margin-top:120px}
 .filmsec__pin{position:relative}
 .filmsec__sticky{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -148,7 +144,7 @@ main{display:block}
 .filmsec.is-cinematic .filmsec__pin{height:230vh}
 .filmsec.is-cinematic .filmsec__sticky{position:sticky;top:0;height:100vh;overflow:hidden}
 .filmsec.is-cinematic .filmsec__head{position:absolute;top:max(24px,calc(50vh - .36 * (min(56.25vw,calc(100vh - 100px)) + 46px) - 72px));left:0;right:0;margin:0;opacity:calc(1 - var(--p,0) * 3)}
-/* Full size = the largest 16:9 frame that fits the viewport with the chapter row below it (no pillarboxing, no nav overlap). */
+
 .filmsec.is-cinematic .film__stage{width:min(100vw,calc((100vh - 100px) * 16 / 9));transform:translateY(calc(var(--ty,40) * 1px)) scale(var(--s,.72));transform-origin:center center;will-change:transform}
 .filmsec.is-cinematic .player__box{border-radius:calc(var(--r) / var(--s,.72))}
 .filmsec__foot{margin-top:28px;text-align:center;color:var(--muted);font-size:.88rem}
@@ -174,7 +170,7 @@ main{display:block}
 .player__bar{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:28px 18px 10px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
 .player.is-started:hover .player__bar,.player.is-started:focus-within .player__bar,.player.is-started.is-awake .player__bar,.player.is-started:not(.is-playing) .player__bar{opacity:1;transform:none}
 .player.is-idle.is-playing .player__box{cursor:none}
-/* Chapter chips sit below the frame, never over the film's burned-in captions. */
+
 .player__chapters{display:flex;gap:6px;margin:14px 0 0;padding:2px;list-style:none;overflow-x:auto;scrollbar-width:none}
 .player__chapters::-webkit-scrollbar{display:none}
 .player__chapters li:first-child{margin-left:auto}.player__chapters li:last-child{margin-right:auto}
@@ -226,7 +222,7 @@ main{display:block}
 .i-restart{position:relative;width:16px;height:16px;border:2px solid currentColor;border-radius:50%;border-left-color:transparent}
 .i-restart::after{content:'';position:absolute;left:-4px;top:-1px;border-style:solid;border-width:4px 4px 4px 0;border-color:transparent currentColor transparent transparent;transform:rotate(-40deg)}
 
-/* ---------- figures ---------- */
+
 .pfig{margin:64px 0 0}
 .pfig img{width:100%;height:auto;border-radius:8px;background:#fff}
 .pfig picture{display:block}
@@ -247,7 +243,7 @@ main{display:block}
 .paperfigs .figure-link{padding:10px}
 .paperfigs .pfig figcaption{font-size:.82rem}
 
-/* ---------- method ---------- */
+
 .axes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:64px;align-items:center;margin-top:96px}
 .axes h3{margin:0 0 12px;font-size:1.6rem;font-weight:650;letter-spacing:-.03em;color:var(--ink)}
 .axes p{margin:0;color:var(--body);text-wrap:pretty}
@@ -286,7 +282,7 @@ main{display:block}
 .hat{position:relative;display:inline-block}
 .hat::after{content:'^';position:absolute;left:0;right:0;top:-.42em;text-align:center;font-style:normal;font-size:.8em}
 
-/* ---------- results: one claim per block ---------- */
+
 .claim{padding:96px 0 0;margin-top:96px;border-top:1px solid var(--line)}
 .claim:first-of-type{margin-top:0;border-top:0;padding-top:0}
 .claim__head{display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px 24px;max-width:1000px;margin-bottom:40px}
@@ -301,7 +297,7 @@ main{display:block}
 .kpi span{display:block;margin-top:12px;color:var(--body);font-size:.92rem;line-height:1.55}
 .kpi:first-child b{color:var(--accent)}
 
-/* charts: plain HTML; text wears ink tokens, marks carry identity (GNR accent, MPC context grey) */
+
 .chart{margin:0;padding:32px;border:1px solid var(--line);border-radius:var(--r)}
 .chart__cap{margin:0 0 26px;color:var(--muted);font-size:.9rem;line-height:1.55}
 .chart__cap b{color:var(--ink);font-weight:600}
@@ -343,7 +339,7 @@ main{display:block}
 .paper-tables[open] summary::after{content:'−'}
 .paper-tables[open] summary{margin-bottom:24px}
 
-/* comparison players */
+
 .compare,.studio{margin:48px 0 0;padding:28px;border:1px solid var(--line);border-radius:22px;background:var(--paper)}
 .compare[hidden]{display:none}
 .compare__head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px 28px;margin-bottom:20px}
@@ -399,7 +395,7 @@ main{display:block}
 .res--ok{background:var(--ok-bg);color:var(--ok-ink)}
 .res--no{background:var(--no-bg);color:var(--no-ink)}
 
-/* tables */
+
 .tbl{margin:48px 0 0;min-width:0}
 .tbl>figcaption{margin:0 0 16px}
 .tbl table{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
@@ -432,7 +428,7 @@ main{display:block}
 .bar b{font-variant-numeric:tabular-nums;color:var(--ink)}
 .bars:not(.is-in) .bar>i::before{transform:scaleX(0)}
 
-/* ---------- dataset wall ---------- */
+
 .wall__filters{display:flex;flex-direction:column;gap:10px;margin:0 0 24px}
 .wall__filters .chips[hidden]{display:none}
 .chips--obj button{font-size:.8rem}
@@ -473,7 +469,7 @@ main{display:block}
 .lb__meta dd{margin:2px 0 0;color:var(--text)}
 html.lb-open{overflow:hidden}
 
-/* ---------- footer ---------- */
+
 .foot{padding:120px 0 80px}
 .foot .sec__title{font-size:clamp(1.8rem,3.4vw,2.6rem)}
 .bib{position:relative;margin:0 0 32px}
@@ -482,13 +478,13 @@ html.lb-open{overflow:hidden}
 .bib button:hover{border-color:var(--ink)}
 .foot__notes p{max-width:var(--text-w);margin:0 0 8px;color:var(--muted);font-size:.9rem}
 
-/* ---------- reveal ---------- */
+
 .reveal{opacity:0;transform:translateY(24px)}
 .reveal.is-in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .cost:not(.is-in) .curve{stroke-dashoffset:320}
 .cost.is-in .curve{transition:stroke-dashoffset 1.6s var(--ease)}
 
-/* ---------- responsive ---------- */
+
 @media (min-width:641px) and (max-width:1100px){
 }
 @media (max-width:1040px){
@@ -562,7 +558,7 @@ html.lb-open{overflow:hidden}
   .lb{width:calc(100% - 12px);border-radius:16px}
   .lb__head,.lb__body{padding-left:14px;padding-right:14px}
 }
-/* Phones: comparison views stack in one column so each clip is full width. */
+
 @media (max-width:600px){
   .compare__views{grid-template-columns:1fr;gap:16px}
   .compare__views .view:first-child{width:72%;justify-self:center}
@@ -582,7 +578,7 @@ html.lb-open{overflow:hidden}
   .nav,.hero__media,.filmsec,.stepper__panel,.compare,.studio,.wall,.bib button,.wall__filters{display:none!important}
 }
 
-/* ---------- figure gallery dialog (assets/js/gallery.js) ---------- */
+
 .gallery{--gallery-ink:#f1f2f4;width:calc(100% - 48px);max-width:1320px;height:calc(100dvh - 48px);max-height:1000px;padding:0;border:1px solid #2a2c31;border-radius:22px;background:#0b0c0e;color:var(--gallery-ink);box-shadow:0 32px 120px #0007;overflow:hidden}
 .gallery[open]{display:flex;flex-direction:column}
 .gallery::backdrop{background:rgba(5,6,8,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}

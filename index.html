@@ -5,27 +5,27 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="site-config.js?v=7db7a796"></script>
+<script src="site-config.js?v=41b6c527"></script>
 <title>GNR: Generative Neural Retargeting for Human-to-Robot Dexterous Manipulation</title>
-<meta name="description" content="Generative Neural Retargeting for dexterous manipulation, including a four-camera real-robot policy demonstration.">
+<meta name="description" content="GNR recasts physics-based retargeting as generative modeling: a flow-matching model samples dynamically feasible robot trajectories conditioned on human motion. 56.10% vs. 28.13% success over MPC (DIAL-MPC) on out-of-distribution HOT3D demonstrations, with 8.5% of its samples.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)">
 
 <meta property="og:site_name" content="GNR: Generative Neural Retargeting">
 <meta property="og:title" content="Generative Neural Retargeting for Human-to-Robot Dexterous Manipulation">
-<meta property="og:description" content="Generative Neural Retargeting for dexterous manipulation, including a four-camera real-robot policy demonstration.">
+<meta property="og:description" content="A flow-matching model that samples feasible robot trajectories conditioned on human motion. 56.10% vs. 28.13% success over MPC (DIAL-MPC) on out-of-distribution HOT3D demonstrations, with 8.5% of its samples.">
 <meta property="og:type" content="website">
 
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=b7cad678">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=da53a9e3">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=dc9ff711">
-<link rel="stylesheet" href="assets/css/site.css?v=50bd79f5">
-<link rel="stylesheet" href="assets/css/policy.css?v=b951644a">
-<script defer src="assets/js/asset-versions.js?v=ae3bbcd5"></script>
-<script defer src="assets/js/site.js?v=a6e49ecf"></script>
-<script defer src="assets/js/policy.js?v=226e8821"></script>
-<script defer src="assets/js/gallery.js?v=d0c119a0"></script>
+<link rel="stylesheet" href="assets/css/site.css?v=489a0d8b">
+<link rel="stylesheet" href="assets/css/policy.css?v=46e9fa9f">
+<script defer src="assets/js/asset-versions.js?v=7e4acb72"></script>
+<script defer src="assets/js/site.js?v=203ed3f5"></script>
+<script defer src="assets/js/policy.js?v=81c926dd"></script>
+<script defer src="assets/js/gallery.js?v=ec1dae86"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -34,7 +34,7 @@
   <a class="nav__brand" href="#top"><svg width="24" height="24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#f1f2f4"/><path d="M20.5 47.5 L11.2 35.2" stroke="#b4b9c1" stroke-width="7.6" stroke-linecap="round" fill="none"/><g transform="rotate(-6 21.4 31.5)"><path d="M21.4 33.5 V13.4" stroke="#b4b9c1" stroke-width="6.8" stroke-linecap="round" fill="none"/></g><g transform="rotate(-1.5 28.9 31.5)"><path d="M28.9 33.5 V10.4" stroke="#b4b9c1" stroke-width="6.8" stroke-linecap="round" fill="none"/></g><path d="M32.4 30 H22.3 a5.3 5.3 0 0 0 -5.3 5.3 V46 a10.5 10.5 0 0 0 10.5 10.5 H32.4 Z" fill="#b4b9c1"/><g transform="rotate(2.5 36.4 31.5)"><rect x="33.2" y="22.11" width="6.4" height="6.59" rx="1.0" fill="#2f5bea"/><circle cx="36.4" cy="21.41" r="1.15" fill="#2f5bea"/><rect x="33.2" y="15.13" width="6.4" height="5.58" rx="1.0" fill="#2f5bea"/><circle cx="36.4" cy="14.43" r="1.15" fill="#2f5bea"/><rect x="33.2" y="9" width="6.4" height="4.73" rx="2.6" fill="#2f5bea"/></g><g transform="rotate(7 43.9 31.5)"><rect x="41" y="23.86" width="5.8" height="4.84" rx="1.0" fill="#2f5bea"/><circle cx="43.9" cy="23.16" r="1.15" fill="#2f5bea"/><rect x="41" y="18.37" width="5.8" height="4.09" rx="1.0" fill="#2f5bea"/><circle cx="43.9" cy="17.67" r="1.15" fill="#2f5bea"/><rect x="41" y="13.5" width="5.8" height="3.47" rx="2.6" fill="#2f5bea"/></g><path d="M33.6 30 H45.6 a3 3 0 0 1 3 3 V53.5 a3 3 0 0 1 -3 3 H33.6 Z" fill="#2f5bea"/><rect x="33.6" y="43.4" width="15" height="1.3" fill="#f1f2f4"/></svg>GNR</a>
   <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="section-links">Contents</button>
   <div class="nav__links" id="section-links">
-    <a href="#policy">Policy Sim-to-Real</a><a href="#video">Video</a><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#dataset">Dataset</a>
+    <a href="#video">Video</a><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#dataset">Dataset</a>
   </div>
 </div></nav>
 
@@ -43,10 +43,10 @@
   <div class="hero__stage">
     <div class="hero__media" aria-hidden="true">
       <picture>
-        <source media="(max-width: 760px)" type="image/webp" srcset="assets/hero/gnr-hero-mobile-poster.webp?v=c4d81305">
-        <source media="(max-width: 760px)" srcset="assets/hero/gnr-hero-mobile-poster.jpg?v=3b300c2e">
-        <source type="image/webp" srcset="assets/hero/gnr-hero-desktop-poster.webp?v=2c635ece">
-        <img src="assets/hero/gnr-hero-desktop-poster.jpg?v=a363f7ed" width="1920" height="1080" alt="" fetchpriority="high">
+        <source media="(max-width: 760px)" type="image/webp" srcset="assets/hero/gnr-hero-mobile-poster.webp?v=565be957">
+        <source media="(max-width: 760px)" srcset="assets/hero/gnr-hero-mobile-poster.jpg?v=1224be0a">
+        <source type="image/webp" srcset="assets/hero/gnr-hero-desktop-poster.webp?v=f418b004">
+        <img src="assets/hero/gnr-hero-desktop-poster.jpg?v=4d4497e3" width="1920" height="1080" alt="" fetchpriority="high">
       </picture>
       <video id="hero-video" muted loop playsinline preload="none" tabindex="-1" disablepictureinpicture aria-hidden="true"></video>
     </div>
@@ -60,12 +60,12 @@
     <p class="eyebrow eyebrow--hero">Anonymous review material</p>
     <h1 class="hero__title"><span class="hero__name"><span class="hero__ini">G</span>enerative <span class="hero__ini">N</span>eural <span class="hero__ini">R</span>etargeting</span> <span class="hero__sub">for Human-to-Robot Dexterous Manipulation</span></h1>
     <div class="links">
-      <a class="pill pill--primary" href="#policy">Real Robot Demo</a>
-      <a class="pill" href="#video">Watch the Explainer</a>
+      <a class="pill pill--primary" href="#video">Watch the Explainer</a>
+      <a class="pill" href="#policy">Real Robot Demo</a>
     </div>
   </div>
   <div class="hero__bottom">
-    <a class="hero__scroll" href="#policy"><span>Scroll</span><i aria-hidden="true"></i></a>
+    <a class="hero__scroll" href="#overview"><span>Scroll</span><i aria-hidden="true"></i></a>
     <button id="hero-pause" class="hero__pause" type="button" aria-controls="hero-video">Pause background video</button>
   </div>
 </header>
@@ -73,42 +73,16 @@
 <template id="full-site-content">
 <main id="main">
 
-<section class="policy" id="policy" aria-labelledby="policy-title" data-policy>
-  <div class="wrap">
-    <div class="policy__head">
-      <div>
-        <h2 id="policy-title">Policy Sim-to-Real</h2>
-        <p class="policy__lead">Vision-based diffusion policy with four RGB cameras.</p>
-      </div>
-      <ul class="policy__highlights" role="list">
-        <li>Zero-shot real robot demonstrations</li>
-        <li>Millimeter-precision five-fingered dexterous manipulation</li>
-      </ul>
-    </div>
-    <div class="policy__deck" data-policy-deck>
-      <div class="policy__grid" data-policy-grid></div>
-      <div class="policy__controls">
-        <button class="policy__play" type="button" data-policy-play>Play</button>
-        <input type="range" min="0" max="13.96" step="0.01" value="0" aria-label="Seek through the synchronized demonstration" data-policy-seek disabled>
-        <span class="policy__time" data-policy-time>0:00 / 0:14</span>
-        <button class="policy__expand" type="button" data-policy-full hidden>Full screen</button>
-      </div>
-      <p class="policy__error" data-policy-error role="status" hidden>The demonstration could not load. Try playing it again.</p>
-      <noscript><p>Enable JavaScript to play the synchronized camera views.</p></noscript>
-    </div>
-  </div>
-</section>
-
 <section class="intro" id="overview" aria-label="Summary">
   <div class="wrap">
     <p class="eyebrow">TL;DR</p>
     <p class="intro__text">Making human-to-robot dexterous retargeting scalable and efficient.</p>
     <p class="intro__subtitle">GNR recasts <strong>physics-based retargeting as generative modeling</strong>. It learns and samples from the feasible motion manifold and achieves <strong>test-time scaling</strong>.</p>
     <dl class="stats">
-      <div class="stat"><dt>Success on 1,000 OOD HOT3D demos</dt><dd><b>56.2%</b> <span>vs. 27.2% for DIAL-MPC (27.2&ndash;34.7% for sampling-based methods)</span></dd></div>
-      <div class="stat"><dt>Sampling budget</dt><dd><b>8.5%</b> <span>of MPC's samples (256 vs. 3,000)</span></dd></div>
-      <div class="stat"><dt>Retargeted HOT3D dataset</dt><dd><b>223k</b> <span>demonstrations, 3.3k object geometries</span></dd></div>
-      <div class="stat"><dt>Precision assembly, 1&nbsp;mm precision</dt><dd><b>33.3%</b> <span>fewer MPC samples at 92.2% success</span></dd></div>
+      <div class="stat"><dt>Retargeted HOT3D dataset</dt><dd><b>223k</b> <span>demonstrations</span></dd></div>
+      <div class="stat"><dt>Object geometries</dt><dd><b>3.3k</b> <span>in the retargeted dataset</span></dd></div>
+      <div class="stat"><dt>Millimeter precision</dt><dd><b>1&nbsp;mm</b> <span>required by the Precision assembly task</span></dd></div>
+      <div class="stat"><dt>Sampling budget</dt><dd><b>8.5%</b> <span>of the samples required by MPC</span></dd></div>
     </dl>
   </div>
 </section>
@@ -169,12 +143,38 @@
   </div>
 </section>
 
+<section class="sec policy" id="policy" aria-labelledby="policy-title" data-policy>
+  <div class="wrap">
+    <div class="sec__head policy__head">
+      <div>
+        <h2 class="sec__title" id="policy-title">Policy Sim-to-Real</h2>
+        <p class="lead">Vision-based diffusion policy (four RGB cameras); recorded views shown.</p>
+      </div>
+      <ul class="policy__highlights" role="list">
+        <li>Zero-shot sim-to-real transfer</li>
+        <li>Millimeter-precision five-fingered dexterous manipulation</li>
+      </ul>
+    </div>
+    <div class="policy__deck" data-policy-deck>
+      <div class="policy__grid" data-policy-grid></div>
+      <div class="policy__controls">
+        <button class="policy__play" type="button" data-policy-play>Play</button>
+        <input type="range" min="0" max="13.96" step="0.01" value="0" aria-label="Seek through the synchronized demonstration" data-policy-seek disabled>
+        <span class="policy__time" data-policy-time>0:00 / 0:14</span>
+        <button class="policy__expand" type="button" data-policy-full hidden>Full screen</button>
+      </div>
+      <p class="policy__error" data-policy-error role="status" hidden>The demonstration could not load. Try playing it again.</p>
+      <noscript><p>Enable JavaScript to play the synchronized camera views.</p></noscript>
+    </div>
+  </div>
+</section>
+
 <section id="abstract" class="sec">
   <div class="wrap">
    <div class="wrap--text">
     <p class="eyebrow">Abstract</p>
     <div class="abstract">
-      <p>Human demonstrations are a scalable data source for learning dexterous manipulation, but the embodiment gap prevents human motion from being executed directly on robots. Inverse kinematics (IK) retargets human motion to robots efficiently but ignores dynamics, often producing infeasible motions. Reinforcement learning (RL) and sampling-based model predictive control (MPC) are commonly employed to yield dynamically feasible motions, but both are sample-inefficient and sensitive to hyperparameters. RL suffers from costly and unstable training and tedious reward engineering; MPC avoids policy optimization, yet retargets each trajectory in isolation, and solving one does not make the next easier. Sampling cost grows rapidly with dataset size and task difficulty. We hypothesize that dynamically feasible trajectories concentrate near a low-dimensional manifold shared across demonstrations, so that retargeting can be reduced to sampling from that manifold, conditioned on human motion, rather than solving a fresh optimization problem for every demonstration. We propose <b>Generative Neural Retargeting</b> (GNR), which uses a flow matching model to sample feasible trajectories. GNR outperforms MPC with only 8.5% of the samples required by MPC, achieving a success rate of 56.20% compared to 27.20% for MPC. GNR can be used for scalable and efficient retargeting of large-scale, long-horizon, and millimeter precision human demonstrations: by applying GNR within a real-to-sim data engine, we produce a dexterous manipulation dataset with dense contact-force labels, spanning 223k demonstrations and 3.3k object geometries.</p>
+      <p>Human demonstrations are a scalable data source for learning dexterous manipulation, but the embodiment gap prevents human motion from being executed directly on robots. Inverse kinematics (IK) retargets human motion to robots efficiently but ignores dynamics, often producing infeasible motions. Reinforcement learning (RL) and sampling-based model predictive control (MPC) are commonly employed to yield dynamically feasible motions, but both are sample-inefficient and sensitive to hyperparameters. RL suffers from costly and unstable training and tedious reward engineering; MPC avoids policy optimization, yet retargets each trajectory in isolation, and solving one does not make the next easier. Sampling cost grows rapidly with dataset size and task difficulty. We hypothesize that dynamically feasible trajectories concentrate near a low-dimensional manifold shared across demonstrations, so that retargeting can be reduced to sampling from that manifold, conditioned on human motion, rather than solving a fresh optimization problem for every demonstration. We propose <b>Generative Neural Retargeting</b> (GNR), which uses a flow matching model to sample feasible trajectories. GNR outperforms MPC with only 8.5% of the samples required by MPC, achieving a success rate of 56.10% compared to 28.13% for MPC. GNR can be used for scalable and efficient retargeting of large-scale, long-horizon, and millimeter-precision human demonstrations: by applying GNR within a real-to-sim data engine, we produce a dexterous manipulation dataset with dense contact-force labels, spanning 223k demonstrations and 3.3k object geometries. Using GNR-generated data, we train visuomotor policies and demonstrate successful zero-shot sim-to-real transfer on a real robot.</p>
     </div>
    </div>
   </div>
@@ -230,7 +230,7 @@
       <span class="eq__sep">,</span>
       <span><i class="hat">&Delta;</i> = <i>G</i><sub><i>&theta;</i></sub>(<i>z</i><sub>0</sub>&thinsp;|&thinsp;<i>c</i>),&ensp;<i>z</i><sub>0</sub> ~ <i>N</i>(0,&thinsp;<b>I</b>),&ensp;<i>c</i> = (<i>x&#772;</i><sub>0:T</sub>,&thinsp;<i>o</i>)</span>
     </div>
-    <p class="note">The backbone is a temporal U-Net with FiLM conditioning, sampled with an Euler ODE solver. Because GNR learns where feasible trajectories lie, it can also solve demonstrations on which its seed generator fails.</p>
+    <p class="note">The backbone is a temporal U-Net with FiLM conditioning, sampled with a 10-step Euler ODE solver. Because GNR learns where feasible trajectories lie, it can also solve demonstrations on which its seed generator fails.</p>
     <figure class="pfig pfig--wide">
       <picture><source type="image/webp" srcset="assets/paper/fig2.webp?v=2d8c8c1c"><img src="assets/paper/fig2.png?v=59073b18" width="1600" height="796" loading="lazy" decoding="async" data-gallery data-title="The human-to-robot data engine" alt="The human-to-robot data engine: (a) real-to-sim and retargeting from motion-capture or egocentric recordings through preparation, real-to-sim plus IK, and physics refinement with DIAL-MPC to candidate trajectories with contact forces; (b) data expansion through a discovery phase and a scaling phase with rejection sampling, whose human-robot pairs train GNR to accelerate retargeting."></picture>
       <figcaption><b>The human-to-robot data engine.</b> (a) Motion-capture recordings (difficulty axis) and egocentric demonstrations (diversity axis) become candidate robot trajectories with simulation-derived contact-force labels. (b) Discovery identifies retargetable segments; scaling expands their physical and geometric coverage. Both filter candidates with the same success criterion, and the resulting pairs train GNR to accelerate subsequent retargeting.</figcaption>
@@ -243,7 +243,7 @@
     <div class="sec__head wrap--text">
       <p class="eyebrow">Results</p>
       <h2 class="sec__title">Why GNR is better</h2>
-      <p class="lead">The simulation experiments compare retargeting success, test-time scaling, and compute cost. The physical robot rollout is shown separately in <a href="#policy">Policy Sim-to-Real</a>.</p>
+      <p class="lead">Each block makes one claim and shows it the way the advantage appears: as video where GNR succeeds and the alternative fails, and as charts where the alternative also succeeds but costs far more. All retargeting results are in simulation: a physics simulator with a Tesollo DG-5F hand (on a Franka FR3 arm for ShapeFilter and Precision Assembly), except the multi-embodiment benchmark, which runs in MuJoCo Warp.</p>
     </div>
 
 
@@ -251,42 +251,41 @@
       <div class="claim__head">
         <p class="claim__n">01</p>
         <div><h3 class="claim__title">More success with 8.5% of the samples</h3>
-        <p class="claim__text">On 1,000 out-of-distribution HOT3D test demonstrations, each with an unseen object (203), source grasp (338) or geometry variant (459): 272 MPC-success and 728 MPC-failure.</p></div>
+        <p class="claim__text">On 1,000 out-of-distribution HOT3D test demonstrations, each with an unseen object, source grasp or geometry variant.</p></div>
       </div>
       <div class="kpis">
-        <div class="kpi"><b>56.2%</b><span>GNR success with 256 samples, vs. 27.2% for DIAL-MPC with 3,000 samples.</span></div>
-        <div class="kpi"><b>42.6%</b><span>of the demonstrations on which MPC fails are solved by GNR at <i>S</i>&nbsp;=&nbsp;256.</span></div>
+        <div class="kpi"><b>56.10%</b><span>GNR success with 256 samples, vs. 28.13% for DIAL-MPC with 3,000 samples (mean over three seeds).</span></div>
+        <div class="kpi"><b>31.9&ndash;58.4%</b><span>of the test demonstrations on which MPC fails (3,000 samples) are solved by GNR at <i>S</i>&nbsp;=&nbsp;256, across the three OOD subsets.</span></div>
         <div class="kpi"><b>7.6&times;</b><span>lower CPU cost per trajectory than its seed generator DIAL-MPC.</span></div>
       </div>
 
       <div class="compare" data-compare="hot3d" hidden>
         <div class="compare__head">
           <div><h4 class="compare__title">MPC fails, GNR succeeds</h4>
-          <p class="compare__sub">Held-out HOT3D test demonstrations on which DIAL-MPC (3,000 samples) fails and GNR succeeds within <i>S</i>&nbsp;=&nbsp;256 samples (shown: the first of the 256 samples to pass); both re-simulated from stored controls. Across the 1,000-demo test set: 56.2% vs. 27.2%. Shown at half speed, from just after the grasp is formed; lines trace the fingertips over the last 0.7&nbsp;s (grey: MPC, blue: GNR).</p></div>
+          <p class="compare__sub">Held-out HOT3D test demonstrations on which DIAL-MPC fails and GNR succeeds, within 8.5% of MPC's sampling budget.</p></div>
           <div class="chips" aria-label="Demonstration" data-chips></div>
         </div>
         <div class="compare__views" data-views></div>
         <div class="compare__ctrl"><button class="cbtn" type="button" data-act="toggle" aria-label="Pause"><span class="i-play"></span></button><button class="cbtn" type="button" data-act="restart" aria-label="Restart together"><span class="i-restart"></span></button><span class="compare__hint">The three views share one timeline and start together.</span></div>
       </div>
       <figure class="tbl">
-      <figcaption><b>Performance on HOT3D.</b> 1,000 out-of-distribution test demonstrations: 272 MPC-success and 728 MPC-failure. CPU core-s: mean per demonstration. Success rate (SR, %) overall and on the MPC-success and MPC-failure splits.</figcaption>
+      <figcaption><b>Performance on HOT3D.</b> 1,000 out-of-distribution test demonstrations (unseen object 203, source grasp 338, geometry variant 459). Mean &plusmn; std over three seeds; IK is determiprecision-assemblyic and run once. E<sub>pos</sub>, E<sub>rot</sub>, E<sub>finger</sub>: object position, orientation and finger-joint angle errors (medians). CPU core-s: mean per demonstration. AUC: ADD-AUC10. &gamma; columns: violation rates (%). Bold: best value per column, excluding IK.</figcaption>
       <div class="scroll" tabindex="0" role="region" aria-label="HOT3D results table, scrollable">
         <table>
-          <thead><tr><th scope="col">Method</th><th scope="col">Samples</th><th scope="col">CPU core&#8209;s&nbsp;&darr;</th><th scope="col">Overall&nbsp;&uarr;</th><th scope="col">MPC&#8209;succ<span class="th-long">ess</span>&nbsp;&uarr;</th><th scope="col">MPC&#8209;fail<span class="th-long">ure</span>&nbsp;&uarr;</th></tr></thead>
+          <thead><tr><th scope="col">Method</th><th scope="col">Samples</th><th scope="col">CPU core&#8209;s&nbsp;&darr;</th><th scope="col">SR (%)&nbsp;&uarr;</th><th scope="col">E<sub>pos</sub> (mm)&nbsp;&darr;</th><th scope="col">E<sub>rot</sub> (&deg;)&nbsp;&darr;</th><th scope="col">E<sub>finger</sub> (&deg;)&nbsp;&darr;</th><th scope="col">AUC&nbsp;&uarr;</th><th scope="col">&gamma;<sub>track</sub>&nbsp;&darr;</th><th scope="col">&gamma;<sub>pen</sub>&nbsp;&darr;</th><th scope="col">&gamma;<sub>grasp</sub>&nbsp;&darr;</th><th scope="col">&gamma;<sub>force</sub>&nbsp;&darr;</th></tr></thead>
           <tbody>
-            <tr class="ref"><td>IK</td><td>1</td><td>39.0</td><td>18.30</td><td>50.00</td><td>6.46</td></tr>
-            <tr class="ref"><td>DIAL-MPC<sup>&dagger;</sup></td><td>3,000</td><td>2689.3</td><td>27.20</td><td>100.00</td><td>0.00</td></tr>
-            <tr><td>MPPI</td><td>3,000</td><td>1849.6</td><td>27.70</td><td>71.32</td><td>11.40</td></tr>
-            <tr><td>iCEM</td><td>3,000</td><td>3862.1</td><td>34.70</td><td>78.68</td><td>18.27</td></tr>
-            <tr><td>CMA-ES</td><td>3,000</td><td>2912.7</td><td>32.00</td><td>72.79</td><td>16.76</td></tr>
-            <tr class="gnr gnr--first"><td>GNR</td><td>1</td><td>48.9</td><td>18.10</td><td>48.16</td><td>6.87</td></tr>
-            <tr class="gnr"><td>GNR</td><td>64</td><td>90.9</td><td>49.60</td><td>88.97</td><td>34.89</td></tr>
-            <tr class="gnr"><td>GNR</td><td>128</td><td>178.6</td><td>52.20</td><td>90.07</td><td>38.05</td></tr>
-            <tr class="gnr best"><td>GNR</td><td>256</td><td>354.1</td><td>56.20</td><td>92.65</td><td>42.58</td></tr>
+            <tr class="ref"><td>IK</td><td>1</td><td>39.0</td><td>18.30</td><td>46.78</td><td>27.46</td><td>0.12</td><td>46.90</td><td>56.3</td><td>29.4</td><td>37.1</td><td>15.9</td></tr>
+            <tr><td>DIAL-MPC</td><td>3,000</td><td>2,689.3</td><td>28.13&plusmn;1.27</td><td>31.71&plusmn;0.24</td><td>15.95&plusmn;0.44</td><td>1.40&plusmn;0.01</td><td>58.88&plusmn;0.52</td><td>33.5&plusmn;1.1</td><td>34.5&plusmn;0.5</td><td>20.6&plusmn;1.0</td><td>25.2&plusmn;0.7</td></tr>
+            <tr><td>MPPI</td><td>3,000</td><td>1,849.6</td><td>27.53&plusmn;0.15</td><td>33.15&plusmn;0.52</td><td>16.95&plusmn;0.19</td><td>1.85&plusmn;0.01</td><td>57.34&plusmn;0.27</td><td>35.2&plusmn;1.0</td><td>33.3&plusmn;1.0</td><td>21.6&plusmn;0.5</td><td>24.7&plusmn;0.4</td></tr>
+            <tr><td>iCEM</td><td>3,000</td><td>3,862.1</td><td>34.93&plusmn;0.49</td><td><b>25.14</b>&plusmn;0.33</td><td><b>11.63</b>&plusmn;0.17</td><td>2.06&plusmn;0.02</td><td><b>61.83</b>&plusmn;0.31</td><td><b>20.8</b>&plusmn;0.2</td><td>37.9&plusmn;1.2</td><td>13.2&plusmn;0.6</td><td>30.9&plusmn;0.6</td></tr>
+            <tr><td>CMA-ES</td><td>3,000</td><td>2,912.7</td><td>32.13&plusmn;0.23</td><td>29.55&plusmn;0.59</td><td>12.45&plusmn;0.26</td><td>1.07&plusmn;0.00</td><td>60.45&plusmn;0.11</td><td>25.7&plusmn;0.5</td><td>34.4&plusmn;0.9</td><td>19.5&plusmn;0.1</td><td>23.4&plusmn;1.0</td></tr>
+            <tr class="gnr gnr--first"><td>GNR</td><td>1</td><td><b>48.9</b></td><td>18.80&plusmn;0.62</td><td>44.85&plusmn;0.62</td><td>25.26&plusmn;0.77</td><td>1.00&plusmn;0.21</td><td>48.28&plusmn;0.41</td><td>55.3&plusmn;1.2</td><td>31.3&plusmn;1.0</td><td>34.8&plusmn;0.4</td><td>18.6&plusmn;0.7</td></tr>
+            <tr class="gnr"><td>GNR</td><td>64</td><td>90.9</td><td>50.00&plusmn;0.53</td><td>34.54&plusmn;0.50</td><td>16.89&plusmn;0.25</td><td><b>0.97</b>&plusmn;0.04</td><td>57.63&plusmn;0.13</td><td>26.5&plusmn;0.2</td><td>19.6&plusmn;0.6</td><td>13.6&plusmn;0.2</td><td>10.1&plusmn;0.5</td></tr>
+            <tr class="gnr"><td>GNR</td><td>128</td><td>178.6</td><td>52.90&plusmn;0.61</td><td>34.08&plusmn;0.08</td><td>16.48&plusmn;0.16</td><td>0.98&plusmn;0.04</td><td>58.07&plusmn;0.22</td><td>24.5&plusmn;0.3</td><td>18.1&plusmn;0.2</td><td>12.1&plusmn;0.4</td><td>9.3&plusmn;0.6</td></tr>
+            <tr class="gnr"><td>GNR</td><td>256</td><td>354.1</td><td><b>56.10</b>&plusmn;0.36</td><td>33.85&plusmn;0.12</td><td>16.42&plusmn;0.10</td><td>0.98&plusmn;0.03</td><td>58.53&plusmn;0.10</td><td>22.4&plusmn;0.5</td><td><b>16.8</b>&plusmn;0.3</td><td><b>10.9</b>&plusmn;0.3</td><td><b>8.5</b>&plusmn;0.2</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="tnote"><sup>&dagger;</sup> DIAL-MPC generates GNR's training data and defines the MPC-success and MPC-failure splits, so its split success rates are 100% and 0% by construction.</p>
       <p class="tnote">Samples: complete trajectories per demonstration for GNR; samples per iteration &times; MPC iterations for the sampling-based methods.</p>
     </figure>
     </article>
@@ -315,19 +314,19 @@
       <div class="claim__head">
         <p class="claim__n">03</p>
         <div><h3 class="claim__title">It scales a dataset beyond what MPC solves</h3>
-        <p class="claim__text">From 780 source motions across 33 objects, the data engine builds 360k augmented human demonstrations. DIAL-MPC succeeds on 95k of them (26.43%) and needs 390k CPU core-h, equivalent to 31.7 days on 512 CPU cores. GNR trained on 28k seed trajectories is applied to the 360k demonstrations with up to <i>S</i>&nbsp;=&nbsp;256 samples, only 8.5% of MPC's sampling budget.</p></div>
+        <p class="claim__text">From 780 source motions across 33 objects, the data engine builds 360k augmented human demonstrations. DIAL-MPC succeeds on 95k of them (26.47%) and needs 390k CPU core-h, equivalent to 31.7 days on 512 CPU cores. GNR trained on 28k seed trajectories is applied to the 360k demonstrations with up to <i>S</i>&nbsp;=&nbsp;256 samples, only 8.5% of MPC's sampling budget.</p></div>
       </div>
       <div class="kpis">
         <div class="kpi"><b>127,136</b><span>MPC-failure demonstrations solved by GNR (48.01% of 264k). On the MPC-success demonstrations GNR achieves 89.30%.</span></div>
         <div class="kpi"><b>223k</b><span>feasible trajectories across 3.3k geometries, including the 95k MPC successes.</span></div>
-        <div class="kpi"><b>2.62&times;</b><span>reduction relative to DIAL-MPC: with 28k MPC seeds, GNR generates 215k trajectories at 148.7k CPU core-h, while DIAL-MPC alone requires 390k CPU core-h to retarget the 360k demonstrations (95k successes).</span></div>
+        <div class="kpi"><b>2.63&times;</b><span>lower CPU cost than the full DIAL-MPC run (148.6k vs. 390k CPU core-h), while yielding about 215k trajectories (vs. 95k from the full run) from only 28k MPC seeds.</span></div>
       </div>
       <figure class="chart">
         <figcaption class="chart__cap"><b>Dataset-generation compute on HOT3D</b> (thousands of CPU core-h, including MPC seed generation; GNR costs estimated from per-trajectory costs) and coverage of the 360k demonstrations.</figcaption>
-        <div class="bars bars--h" role="img" aria-label="All MPC: 390.043 thousand core-h, 26.4% coverage. All MPC data plus GNR at S=256: 416.090, 61.6%. 28k MPC seeds plus GNR at S=256: 148.735, 59.7%.">
-          <div class="hb hb--ctx" style="--v:390.043;--max:416.09"><span class="hb__label">All MPC</span><span class="hb__bar"><i></i></span><span class="hb__val">390.043<small>26.4% coverage</small></span></div>
-          <div class="hb hb--ctx" style="--v:416.090;--max:416.09"><span class="hb__label">All MPC data + GNR <i>S</i>=256</span><span class="hb__bar"><i></i></span><span class="hb__val">416.090<small>61.6% coverage</small></span></div>
-          <div class="hb hb--gnr" style="--v:148.735;--max:416.09"><span class="hb__label">28k MPC seeds + GNR <i>S</i>=256</span><span class="hb__bar"><i></i></span><span class="hb__val">148.735<small>59.7% coverage</small></span></div>
+        <div class="bars bars--h" role="img" aria-label="All MPC: 390.043 thousand core-h, 26.47% coverage. All MPC data plus GNR at S=256: 416.090, 61.77%. 28k MPC seeds plus GNR at S=256: 148.562, 59.71%.">
+          <div class="hb hb--ctx" style="--v:390.043;--max:416.09"><span class="hb__label">All MPC</span><span class="hb__bar"><i></i></span><span class="hb__val">390.043<small>26.47% coverage</small></span></div>
+          <div class="hb hb--ctx" style="--v:416.090;--max:416.09"><span class="hb__label">All MPC data + GNR <i>S</i>=256</span><span class="hb__bar"><i></i></span><span class="hb__val">416.090<small>61.77% coverage</small></span></div>
+          <div class="hb hb--gnr" style="--v:148.562;--max:416.09"><span class="hb__label">28k MPC seeds + GNR <i>S</i>=256</span><span class="hb__bar"><i></i></span><span class="hb__val">148.562<small>59.71% coverage</small></span></div>
         </div>
       </figure>
     </article>
@@ -337,10 +336,10 @@
       <div class="claim__head">
         <p class="claim__n">04</p>
         <div><h3 class="claim__title">Millimeter precision, long horizons: where IK fails</h3>
-        <p class="claim__text">Demonstrations recorded with 15 motion capture cameras and an instrumented wearable exoskeleton. <b>ShapeFilter</b> inserts a cross-shaped part into a matching hole with a tolerance of 1.96&nbsp;mm (3,037 demonstrations augmented from 605). <b>Precision Assembly</b> grasps, transports, aligns and screws a knob onto a threaded post; its 358 demonstrations average 29&nbsp;s, and success requires horizontal error below 1&nbsp;mm, screwing down at least 8&nbsp;mm and axis error below 0.003&nbsp;rad.</p></div>
+        <p class="claim__text">Two motion-capture tasks. <b>ShapeFilter</b> inserts a cross-shaped part into a matching hole with a tolerance of 1.96&nbsp;mm. <b>Precision Assembly</b> screws a knob onto a threaded post, which requires 1&nbsp;mm precision, in demonstrations averaging 29&nbsp;s.</p></div>
       </div>
       <div class="kpis">
-        <div class="kpi"><b>3.7% &rarr; 99.3%</b><span>ShapeFilter open-loop success: IK vs. GNR at <i>S</i>&nbsp;=&nbsp;256 (52.4% at <i>S</i>&nbsp;=&nbsp;1, 97.4% at <i>S</i>&nbsp;=&nbsp;64).</span></div>
+        <div class="kpi"><b>3.7% &rarr; 99.3%</b><span>ShapeFilter open-loop success: IK vs. GNR at <i>S</i>&nbsp;=&nbsp;256.</span></div>
         <div class="kpi"><b>33.3%</b><span>fewer samples on Precision Assembly: with GNR initialization, MPC reaches 92.2% using 2,296 samples instead of the 3,440 used by vanilla MPC. Open loop, IK reaches 0% and GNR 4.7% at <i>S</i>&nbsp;=&nbsp;256.</span></div>
       </div>
       <div class="studio" data-studio data-keys="ik,gnr,gnr_mpc,mpc">
@@ -361,7 +360,7 @@
           <input class="scrub__range" type="range" min="0" max="1000" value="0" step="1" aria-label="Scrub all views" data-scrub>
           <span class="scrub__time" data-time>0.0 s</span>
         </div>
-        <p class="studio__note">Held-out test demonstrations. IK fails open loop on both tasks. On ShapeFilter, a single GNR sample succeeds open loop, and GNR + MPC (one GNR sample + 500 MPC samples) succeeds as well. On Precision Assembly, open-loop GNR also fails, while GNR-initialized MPC and vanilla MPC both succeed; their sample budgets are compared in the chart below (2,296 vs. 3,440 samples to reach 92.2%). ShapeFilter plays at 2&times; speed, Precision Assembly at 3&times; speed. On Precision Assembly, success requires horizontal error below 1&nbsp;mm, screwing down by at least 8&nbsp;mm, and axis error below 0.003&nbsp;rad.</p>
+        <p class="studio__note">Held-out test demonstrations: IK fails open loop on both tasks, while GNR + MPC succeeds on both.</p>
       </div>
     </article>
 
@@ -425,9 +424,9 @@
           <div class="scroll" tabindex="0" role="region" aria-label="Dataset-generation cost table, scrollable"><table>
             <thead><tr><th>Task</th><th>Generation</th><th>MPC data</th><th>GNR</th><th>Total</th><th>Coverage</th></tr></thead>
             <tbody>
-              <tr><td>HOT3D</td><td>all MPC</td><td>390.043</td><td>&ndash;</td><td>390.043</td><td>26.4%</td></tr>
-              <tr><td>HOT3D</td><td>all MPC data + GNR <i>S</i>=256</td><td>390.043</td><td>26.047</td><td>416.090</td><td>61.6%</td></tr>
-              <tr class="gnr"><td>HOT3D</td><td>28k MPC seeds + GNR <i>S</i>=256</td><td>116.112</td><td>32.623</td><td>148.735</td><td>59.7%</td></tr>
+              <tr><td>HOT3D</td><td>all MPC</td><td>390.043</td><td>&ndash;</td><td>390.043</td><td>26.47%</td></tr>
+              <tr><td>HOT3D</td><td>all MPC data + GNR <i>S</i>=256</td><td>390.043</td><td>26.047</td><td>416.090</td><td>61.77%</td></tr>
+              <tr class="gnr"><td>HOT3D</td><td>28k MPC seeds + GNR <i>S</i>=256</td><td>115.939</td><td>32.623</td><td>148.562</td><td>59.71%</td></tr>
               <tr><td>ShapeFilter</td><td>all MPC</td><td>8.541</td><td>&ndash;</td><td>8.541</td><td>93.70%</td></tr>
               <tr class="gnr"><td>ShapeFilter</td><td>50 MPC seeds + GNR</td><td>0.203</td><td>0.562</td><td>0.766</td><td>94.82%</td></tr>
               <tr><td>Precision Assembly</td><td>all MPC</td><td>79.136</td><td>&ndash;</td><td>79.136</td><td>92.19%</td></tr>
@@ -487,7 +486,7 @@
   <div class="wrap">
     <div class="sec__head wrap--text">
       <h2 class="sec__title">Dataset</h2>
-      <p class="lead">Applied within the real-to-sim data engine, GNR helps turn HOT3D egocentric recordings into 223k paired human and feasible robot trajectories across 3.3k object geometries, plus 3.4k retargeted trajectories for the two millimeter-precision tasks. Every tile is a GNR result; tiles play as they scroll into view. Open one to see the robot rollout next to its human source.</p>
+      <p class="lead">Applied within the real-to-sim data engine, GNR helps turn HOT3D egocentric recordings into 223k paired human and feasible robot trajectories across 3.3k object geometries, plus 3.4k retargeted trajectories for the two millimeter-precision tasks. Every tile is a GNR or GNR + MPC result; tiles play as they scroll into view. Open one to see the robot rollout next to its human source.</p>
     </div>
     <div class="wall__filters" data-filters>
       <div class="chips" role="group" aria-label="Filter by axis" data-fgroup="axis"><button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="div" aria-pressed="false">Diversity &middot; HOT3D</button><button type="button" data-filter="dif" aria-pressed="false">Difficulty &middot; ShapeFilter, Precision Assembly</button></div>
@@ -495,7 +494,7 @@
     <ul class="wall" data-wall></ul>
     <p class="wall__more" data-more hidden><button class="cbtn cbtn--txt" type="button"></button></p>
     <noscript><p class="note">The demonstration wall needs JavaScript. The clips are in <code>assets/video/</code>.</p></noscript>
-    <p class="note">HOT3D clips include egocentric recordings and simulated robot rollouts. Precision-task clips show simulated retargeting of demonstrations captured with a wearable exoskeleton.</p>
+    <p class="note">Egocentric videos from HOT3D; robot clips simulated in a physics simulator.</p>
   </div>
 </section>
 

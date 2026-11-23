@@ -15,7 +15,6 @@
     return hash ? path + '?v=' + hash : path;
   };
 
-  // All four crops use the same decoded frame and playback clock.
   const video = document.createElement('video');
   video.muted = true;
   video.playsInline = true;
@@ -143,7 +142,7 @@
   };
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+      visible = entry.isIntersecting && entry.intersectionRatio >= 0.33;
       visibility();
     }, {threshold: 0.33}).observe(grid);
   }

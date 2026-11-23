@@ -1,22 +1,29 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:23.000
+1
+00:00:00.000 --> 00:00:26.500
 Opening
 
-00:00:23.000 --> 00:00:59.000
-The retargeting problem
+2
+00:00:26.500 --> 00:01:05.900
+Why is this hard?
 
-00:00:59.000 --> 00:01:13.000
-Learning feasible motion
+3
+00:01:05.900 --> 00:01:18.300
+Why re-solve every demo?
 
-00:01:13.000 --> 00:02:13.000
-How GNR works
+4
+00:01:18.300 --> 00:02:16.800
+How does GNR work?
 
-00:02:13.000 --> 00:02:41.000
-Simulation results
+5
+00:02:16.800 --> 00:03:27.600
+Does it work?
 
-00:02:41.000 --> 00:02:56.000
-Real robot policy
+6
+00:03:27.600 --> 00:03:39.900
+From simulation to a real robot
 
-00:02:56.000 --> 00:03:09.267
+7
+00:03:39.900 --> 00:03:56.100
 The takeaway

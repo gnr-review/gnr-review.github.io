@@ -1,6 +1,3 @@
-/* GNR project page behaviour. No dependencies. Media and switches come from site-config.js.
-   Components: opening background video, film player (inline + modal) (chapters, quality, PiP, mini player, keyboard), method stepper,
-   HOT3D MPC-vs-GNR comparison, ShapeFilter/Precision Assembly sync + wipe studio, dataset wall + lightbox, nav, reveals. */
 (function () {
   'use strict';
   var C = window.GNR_SITE || {};
@@ -22,13 +19,13 @@
     var o = new IntersectionObserver(function (es) { es.forEach(function (e) { cb(e.isIntersecting, e); }); }, opts || { threshold: 0.25 });
     o.observe(target); return o;
   }
-  // Content-hash cache busting for media (assets/js/asset-versions.js, written by scripts/stamp_assets.py).
+
   var AV = window.GNR_ASSET_V || {};
   function ver(u) { var h = AV[u]; return h ? u + '?v=' + h : u; }
   var probe = document.createElement('video');
   var AV1 = !!probe.canPlayType && probe.canPlayType('video/webm; codecs="av01.0.08M.08, opus"') === 'probably';
   var MP4 = !!probe.canPlayType && probe.canPlayType('video/mp4; codecs="avc1.640028, mp4a.40.2"') !== '';
-  // Pick one rendition: q = 'auto' | '1080' | '720'.
+
   function pick(stem, q) {
     if (q === 'auto') {
       var small = Math.min(screen.width, innerWidth) * (window.devicePixelRatio || 1) < 1100;
@@ -41,13 +38,13 @@
   var LAB = { egocentric: ['Egocentric', 'human'], human_sim: ['Real-to-sim', 'human'], human_mpc: ['Real-to-sim + MPC', 'human'],
     ik: ['IK', 'ik'], mpc: ['MPC', 'mpc'], gnr: ['GNR', 'gnr'], gnr_mpc: ['GNR + MPC', 'gnr'] };
   var GROUP = { gnr: ['GNR retargeting', 'GNR'], mpc: ['DIAL-MPC', 'DIAL-MPC'], pair: ['MPC fails, GNR succeeds', 'MPC ✗ · GNR ✓'], human: ['Human real-to-sim', 'Real-to-sim'], precision: ['Precision task', 'Precision'] };
-  var SETS = { hot3d: ['HOT3D egocentric recording', 'Simulated dexterous hand'], shapefilter: ['ShapeFilter: motion capture with a wearable exoskeleton', 'Simulated robot arm and dexterous hand'], 'precision-assembly': ['Precision Assembly: motion capture with a wearable exoskeleton', 'Simulated robot arm and dexterous hand'] };
+  var SETS = { hot3d: ['HOT3D egocentric recording', 'Tesollo DG-5F hand, a physics simulator'], shapefilter: ['ShapeFilter: motion capture with a wearable exoskeleton', 'Tesollo DG-5F hand on a Franka FR3 arm, a physics simulator'], 'precision-assembly': ['Precision Assembly: motion capture with a wearable exoskeleton', 'Tesollo DG-5F hand on a Franka FR3 arm, a physics simulator'] };
   function grp(d) { return d.group || 'precision'; }
   function labHTML(k) { var l = LAB[k] || [k, 'ik']; return '<span class="lab lab--' + l[1] + '">' + l[0] + '</span>'; }
   function resHTML(r) { return r === 'ok' ? '<span class="res res--ok"><span aria-hidden="true">&#10003;</span> success</span>' : r === 'no' ? '<span class="res res--no"><span aria-hidden="true">&#10007;</span> fail</span>' : ''; }
   function speedHTML(sp) { return sp ? '<span class="view__speed" title="Playback speed">' + sp + '</span>' : ''; }
   function listJoin(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
-  // AV1 WebM when the slot has one and the browser plays AV1, else H.264 (a failed WebM falls back below).
+
   function clipSrc(slot) { var w = 'assets/video/' + slot + '.webm'; return AV1 && AV[w] ? ver(w) : ver('assets/video/' + slot + '.mp4'); }
   document.addEventListener('error', function (e) {
     var v = e.target; if (!v || v.tagName !== 'VIDEO' || !v.closest('.view,.tile,.wipe,.lb')) return;
@@ -59,7 +56,6 @@
   try { var dj = $('#demo-data'); if (dj) DEMOS = JSON.parse(dj.textContent); } catch (e) { DEMOS = []; }
   var full = !!C.fullSite;
 
-  /* ---------------- film player: cinematic pinned reveal + muted autoplay in view ---------------- */
   var film = null;
   function Film(root, cfg) {
     var self = this;
@@ -114,9 +110,9 @@
       idleT = setTimeout(function () { if (!video.paused && qList.hidden && keys.hidden) { player.classList.add('is-idle'); player.classList.remove('is-awake'); } }, 2600);
     }
     function soundUI() { soundBtn.hidden = !(started && video.muted); }
-    // Start playback. sound=true: user intent (unmute); sound=false: muted autoplay.
+
     this.start = function (t, sound) {
-      // Bandwidth: muted autoplay streams the 720p file; the chosen quality (auto = 1080p on large screens) loads once the viewer opts in.
+
       if (!started) { started = true; setSrc(!sound && quality === 'auto' ? '720' : quality, false); player.classList.add('is-started'); }
       if (sound) { video.muted = false; everUnmuted = true; autoMode = false; userPaused = false; upgrade(); }
       if (t != null) {
@@ -124,7 +120,7 @@
         else video.addEventListener('loadedmetadata', function f() { video.removeEventListener('loadedmetadata', f); video.currentTime = t; });
       }
       var pr = video.play();
-      // Autoplay blocked (e.g. Low Power Mode): fall back to the poster and the big play button.
+
       if (pr && pr.catch) pr.catch(function (err) {
         if (!err || err.name !== 'NotAllowedError' || sound) return;
         started = false; autoMode = false; allowAuto = false;
@@ -145,7 +141,7 @@
       else if (player.webkitRequestFullscreen) player.webkitRequestFullscreen();
       else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
     };
-    // From elsewhere on the page (method stepper): bring the film into view and play with sound.
+
     this.playFrom = function (t) {
       var target = root.classList.contains('is-cinematic') ? root.offsetTop + root.offsetHeight - innerHeight : root.getBoundingClientRect().top + scrollY - 80;
       scrollTo({ top: Math.max(0, target), behavior: reduced() ? 'auto' : 'smooth' });
@@ -154,7 +150,7 @@
     big.addEventListener('click', function () { self.start(0, true); });
     soundBtn.addEventListener('click', function (e) {
       e.stopPropagation();
-      // First unmute restarts from the beginning, since a muted autoplay viewer has likely missed the opening.
+
       var restart = !everUnmuted; self.start(restart ? 0 : null, true); flash('Sound on');
     });
     video.addEventListener('click', function () { if (video.muted && autoMode) { soundBtn.click(); return; } self.toggle(); });
@@ -163,7 +159,6 @@
     video.addEventListener('play', function () { player.classList.add('is-playing'); $('[data-act="play"]', player).setAttribute('aria-label', 'Pause'); });
     video.addEventListener('pause', function () { player.classList.remove('is-playing', 'is-idle'); $('[data-act="play"]', player).setAttribute('aria-label', 'Play'); });
     video.addEventListener('timeupdate', update);
-    video.addEventListener('seeked', update);
     video.addEventListener('progress', update);
     video.addEventListener('volumechange', function () { player.classList.toggle('is-muted', video.muted); $('[data-act="mute"]', player).setAttribute('aria-label', video.muted ? 'Unmute' : 'Mute'); soundUI(); });
     player.classList.add('is-muted');
@@ -226,10 +221,10 @@
       else handled = false;
       if (handled) { e.preventDefault(); wake(); }
     });
-    // Muted autoplay when at least half visible; pause when it leaves (resume only if it was not paused by the user).
+
     var allowAuto = canAuto();
     if (allowAuto) player.classList.add('is-auto');
-    // Start fetching the film about one viewport before it is reached, so the first frame is ready when it autoplays.
+
     var near = io(root, function (vis) { if (vis && allowAuto && !video.getAttribute('src')) { setSrc(quality === 'auto' ? '720' : quality, false, 'metadata'); if (near) near.disconnect(); } }, { rootMargin: '100% 0px 100% 0px', threshold: 0 });
     io(stage, function (vis) {
       visible = vis;
@@ -237,7 +232,7 @@
       else if (!video.paused) video.pause();
     }, { threshold: 0.5 });
     document.addEventListener('visibilitychange', function () { if (document.hidden && !video.paused) video.pause(); else if (!document.hidden && visible && started && !userPaused) play(video); });
-    // Cinematic pinned reveal: the card scales from an inset to full-bleed as the section scrolls (desktop, motion allowed).
+
     var cine = matchMedia('(min-width: 761px)');
     function setupCine() {
       var on = !reduced() && cine.matches;
@@ -255,7 +250,7 @@
       var s = s0 + (1 - s0) * e;
       stage.style.setProperty('--s', s.toFixed(4)); stage.style.setProperty('--p', e.toFixed(4)); stage.style.setProperty('--ty', (48 * (1 - e)).toFixed(1));
       root.style.setProperty('--p', e.toFixed(4));
-      // While the film fills the screen, the fixed nav steps aside so it never covers the frame.
+
       var pinned = e > 0.6 && r.bottom > innerHeight * 0.5;
       document.documentElement.classList.toggle('is-film-pinned', pinned);
     }
@@ -267,7 +262,6 @@
     update();
   }
 
-  /* ---------------- method stepper ---------------- */
   function Stepper(root, steps) {
     var btns = $$('.stepper__btn', root), video = $('.stepper__video', root), poster = $('.stepper__poster', root), prog = $('.stepper__prog i', root);
     var panel = $('.stepper__panel', root), i = 0, manual = false, visible = false, raf = 0;
@@ -304,7 +298,6 @@
     show(0, false);
   }
 
-  /* ---------------- shared clip views ---------------- */
   function pairOK(d) {
     var m = d.views.filter(function (v) { return v.k === 'mpc'; })[0], g = d.views.filter(function (v) { return v.k === 'gnr'; })[0];
     return d.set === 'hot3d' && !!(m && g && m.res === 'no' && g.res === 'ok');
@@ -322,7 +315,6 @@
   }
   function arm(v) { if (!v.getAttribute('src')) v.src = v.dataset.src; return v; }
 
-  /* HOT3D MPC vs GNR: three views that start together. */
   function Compare(root, demos) {
     var chips = $('[data-chips]', root), views = $('[data-views]', root), tg = $('[data-act="toggle"]', root);
     var vids = [], k = 0, visible = false, userPaused = !canAuto();
@@ -336,7 +328,7 @@
       views.innerHTML = ''; vids = [];
       demos[j].views.forEach(function (v) { var o = viewEl(v, { title: demos[j].title, speed: demos[j].speed }); views.appendChild(o.el); vids.push(o.video); });
     }
-    // Keep every view on the first view's clock (same 0.04 s threshold as the studio).
+
     var raf = 0;
     function syncLoop() {
       cancelAnimationFrame(raf);
@@ -355,7 +347,6 @@
     io(root, function (vis) { visible = vis; run(); }, { threshold: 0.15 });
   }
 
-  /* ShapeFilter / Precision Assembly: four synced views, or a draggable wipe between two of them. */
   function Studio(root, demos) {
     var KEYS = (root.dataset.keys || 'ik,mpc,gnr,gnr_mpc').split(',');
     demos = demos.map(function (d) { var c = {}; for (var x in d) c[x] = d[x]; c.views = d.views.filter(function (v) { return KEYS.indexOf(v.k) >= 0; }); return c; });
@@ -368,7 +359,7 @@
       chips.appendChild(b);
     });
     var titleEl = $('[data-studio-title]', root);
-    // Wipe options and the title list only the views this demonstration has.
+
     function options() {
       var ks = demos[k].views.map(function (v) { return v.k; }), keepL = selL.value, keepR = selR.value;
       [selL, selR].forEach(function (s) { s.innerHTML = ''; ks.forEach(function (key) { var o = el('option', '', LAB[key][0]); o.value = key; s.appendChild(o); }); });
@@ -440,7 +431,6 @@
     io(root, function (vis) { visible = vis; run(); }, { threshold: 0.15 });
   }
 
-  /* ---------------- dataset wall + lightbox ---------------- */
   function Wall(root, demos) {
     var wall = $('[data-wall]', root);
     var ctl = [];
@@ -455,12 +445,11 @@
       var img = el('img'); img.alt = ''; img.loading = 'lazy'; img.decoding = 'async'; img.src = clipPoster(d.tile || main.slot); b.appendChild(img);
       var vid = null;
       if (ego) { var pip = el('span', 'tile__pip'), pi = el('img'); pi.alt = ''; pi.loading = 'lazy'; pi.src = clipPoster(ego.slot); pip.appendChild(pi); b.appendChild(pip); }
-      // Tag = the method of the tile's clip (every wall tile is a GNR result) plus the playback speed.
+
       var tag = LAB[mk][0] + (d.speed ? ' · ' + d.speed : '');
       var name = d.title;
       b.appendChild(el('span', 'tile__meta', '<b>' + name + '</b><span>' + tag + '</span>'));
-      // Autoplay (muted, looping) while the tile is in view: the robot clip and the egocentric inset, the inset on the main clip's clock.
-      // Off screen: pause; more than a viewport away: release both decoders. Reduced motion / Save-Data: posters only.
+
       var pv = null, pipEl = b.querySelector('.tile__pip'), inView = false;
       function makeVid(slot) { var v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'auto'; v.setAttribute('aria-hidden', 'true'); v.src = clipSrc(slot); return v; }
       function start() {
@@ -484,7 +473,7 @@
       li.appendChild(b); wall.appendChild(li);
       return li;
     });
-    // One filter along the paper's two axes: diversity (HOT3D) and difficulty (ShapeFilter, Precision Assembly). Long lists show a first page.
+
     var sel = 'all', expanded = false, PAGE = matchMedia('(max-width: 640px)').matches ? 8 : 12;
     var more = $('[data-more]', root), moreBtn = more && $('button', more), fbox = $('[data-fgroup="axis"]', root);
     function axis(d) { return d.set === 'hot3d' ? 'div' : 'dif'; }
@@ -496,7 +485,7 @@
     });
     function apply() {
       var shown = 0, total = 0, idx = demos.map(function (d, j) { return j; }).filter(match), all = idx.length, page = all <= PAGE + 3 ? all : PAGE;
-      // First page = whole grid rows (4 rows at the current column count), counting 2x2 feature and 2x1 wide tiles.
+
       if (page < all) {
         var cols = getComputedStyle(wall).gridTemplateColumns.split(' ').length, cells = 0;
         for (var q = 0; q < all; q++) {
@@ -513,14 +502,14 @@
     }
     if (moreBtn) moreBtn.addEventListener('click', function () { expanded = true; apply(); });
     apply();
-    // Lightbox
+
     var dlg = el('dialog', 'lb'); dlg.setAttribute('aria-labelledby', 'lb-title');
     dlg.innerHTML = '<div class="lb__head"><div><h3 id="lb-title">Demonstration</h3><p data-sub></p></div><div class="lb__acts">' +
       '<button class="cbtn" type="button" data-lb="prev" aria-label="Previous demonstration">&larr;</button><button class="cbtn" type="button" data-lb="next" aria-label="Next demonstration">&rarr;</button>' +
       '<button class="cbtn" type="button" data-lb="close" aria-label="Close" autofocus>&times;</button></div></div><div class="lb__body"><div class="lb__views" data-views></div><dl class="lb__meta" data-meta></dl></div>';
     document.body.appendChild(dlg);
     var cur = 0, opener = null, lbVids = [], lbRaf = 0;
-    // Keep every lightbox view on the first view's clock; a view still buffering holds the others back.
+
     function lbSync() {
       cancelAnimationFrame(lbRaf);
       (function step() {
@@ -537,7 +526,7 @@
     }
     function fill(j) {
       var step = j > cur ? 1 : -1, n = demos.length; j = (j + n) % n;
-      // Arrow navigation stays inside the active filters.
+
       for (var g = 0; g < n && !match(j); g++) j = (j + step + n) % n;
       cur = j; var d = demos[cur];
       lbVids.forEach(function (v) { v.pause(); v.removeAttribute('src'); v.load(); }); lbVids = [];
@@ -558,11 +547,11 @@
       $('[data-meta]', dlg).innerHTML =
         (d.obj ? '<div><dt>Object</dt><dd>' + d.obj + '</dd></div>' : '') +
         '<div><dt>Source</dt><dd>' + st[0] + '</dd></div>' +
-        '<div><dt>' + (hand ? 'Hand' : 'Robot') + '</dt><dd>' + (hand ? 'Simulated human hand' : st[1]) + '</dd></div>' +
+        '<div><dt>' + (hand ? 'Hand' : 'Robot') + '</dt><dd>' + (hand ? 'Simulated human hand, a physics simulator' : st[1]) + '</dd></div>' +
         '<div><dt>Views</dt><dd>' + views.map(function (v) { return LAB[v.k][0] + (v.budget ? ' (' + v.budget + ')' : ''); }).join(', ') + '</dd></div>' +
         (d.ds ? '<div><dt>Method</dt><dd>' + (g === 'mpc' ? 'DIAL-MPC' : 'GNR') + '</dd></div>' : '') +
         '<div><dt>Playback</dt><dd>' + (d.speed ? d.speed + ' real time' : 'Real time') + (d.frames ? ' · ' + d.frames + ' frames at ' + d.fps + ' fps (' + (d.frames / d.fps).toFixed(1) + ' s)' : '') + '</dd></div>' +
-        (g === 'pair' ? '<div><dt>Rollouts</dt><dd>Re-simulated from stored controls (open loop)</dd></div>' : '');
+        (g === 'pair' ? '<div><dt>Rollouts</dt><dd>Re-simulated from stored controls in simulation (open loop)</dd></div>' : '');
     }
     function openLB(j) { opener = document.activeElement; fill(j); document.documentElement.classList.add('lb-open'); if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); lbSync(); }
     dlg.addEventListener('click', function (e) {
@@ -573,7 +562,6 @@
     dlg.addEventListener('close', function () { document.documentElement.classList.remove('lb-open'); ctl.forEach(function (c) { c.resume(); }); lbVids.forEach(function (v) { v.pause(); v.removeAttribute('src'); v.load(); }); lbVids = []; if (opener) opener.focus({ preventScroll: true }); });
   }
 
-  /* ---------------- nav, reveals, misc ---------------- */
   function Nav() {
     var nav = $('.nav'); if (!nav || !full) return;
     var hero = $('.hero'), toggle = $('.nav__toggle', nav), links = $$('.nav__links a', nav), box = $('.nav__links', nav);
@@ -596,7 +584,7 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('nav--open')) { close(); toggle.focus(); } });
   }
   function Reveal() {
-    var targets = $$('.sec__head,.pfig,.tbl,.stats,.kpis,.claim__head,.studio,.stepper,.axes,.eq,.wall,.intro__text,.chart');
+    var targets = $$('.sec__head,.policy__deck,.pfig,.tbl,.stats,.kpis,.claim__head,.studio,.stepper,.axes,.eq,.wall,.intro__text,.chart');
     var anim = $$('.bars,.cost,.chart');
     if (reduced() || !('IntersectionObserver' in window)) { anim.forEach(function (a) { a.classList.add('is-in'); }); return; }
     var o = new IntersectionObserver(function (es) {
@@ -608,37 +596,31 @@
     anim.forEach(function (a) { o.observe(a); });
   }
 
-
-  /* ---------------- axis labels: placed on the label anchors of the background render (object-fit: cover aware) ---------------- */
   (function () {
     var hero = $('.hero'), stage = $('.hero__stage'), l = $('[data-axis="l"]'), r = $('[data-axis="r"]'), inner = $('.hero__in');
     if (!hero || !stage || !l || !r) return;
     var mq = matchMedia('(max-width: 760px)');
-    // Label anchors in % of the render frame per background variant (html[data-hero]; b is the site default): [x, y, h-align, v-align].
-    // a: difficulty band on top, diversity wall below. b: precision tasks left, diversity wall right.
+
     var HV = {
-      // a: the diversity label sits at the top of the wall when that is clear of the text column, else at its bottom (rf).
-      // band: the zone boundary (fraction of the frame height) that is moved into the gap between the eyebrow and the title.
+
       a: { d: { fw: 1920, fh: 1080, band: 0.3315, l: [2.0, 6.0, 'left', 'top'], r: [2.0, 38.9, 'left', 'top'], rf: [2.0, 96.0, 'left', 'bottom'] },
            m: { fw: 1080, fh: 1920, l: [4.0, 3.0, 'left', 'top'], r: [4.0, 36.5, 'left', 'top'] } },
       b: { d: { fw: 1920, fh: 1080, l: [2.0, 6.0, 'left', 'top'], r: [52.1, 6.0, 'left', 'top'] },
            m: { fw: 1080, fh: 1920, l: [4.0, 3.0, 'left', 'top'], r: [4.0, 36.5, 'left', 'top'] } },
-      // c: band below the title (B composition, 21:9 crop); d: split hero, portrait composition top-aligned in the right panel.
-      // inside: the labels sit inside the band, so they never need to avoid the text column.
+
       c: { inside: true, d: { fw: 1920, fh: 1080, l: [2.0, 6.0, 'left', 'top'], r: [52.1, 6.0, 'left', 'top'] },
            m: { fw: 1080, fh: 1920, py: 0, l: [4.0, 3.0, 'left', 'top'], r: [4.0, 36.5, 'left', 'top'] } },
       d: { inside: true, d: { fw: 1080, fh: 1920, py: 0, l: [7.0, 3.0, 'left', 'top'], r: [7.0, 36.5, 'left', 'top'] },
            m: { fw: 1080, fh: 1920, py: 0, l: [4.0, 3.0, 'left', 'top'], r: [4.0, 36.5, 'left', 'top'] } } };
     var wide = matchMedia('(min-width: 1101px)');
     function place() {
-      // d is a split hero only from 1101px; narrower it falls back to c (title block, then the band).
+
       var hv = document.documentElement.dataset.hero || 'b', A = HV[hv === 'd' && !wide.matches ? 'c' : hv] || HV.b;
       var a = mq.matches ? A.m : A.d, W = stage.clientWidth, H = stage.clientHeight, m = mq.matches ? 14 : 24;
       if (A.inside) m = mq.matches ? 14 : 20;
       var sc = Math.max(W / a.fw, H / a.fh), ox = (W - a.fw * sc) / 2, oy = (H - a.fh * sc) * (a.py == null ? 0.5 : a.py);
       var hr = stage.getBoundingClientRect();
-      // Variant A: scale the background a little (from its bottom or top edge) so the band/wall boundary falls in the
-      // gap between the eyebrow and the title instead of crossing the title.
+
       var media = $('.hero__media', stage), k = 1;
       if (media) { media.style.transform = ''; media.style.transformOrigin = ''; }
       if (a.band && media && inner) {
@@ -655,8 +637,7 @@
         var x = ox + p[0] / 100 * a.fw * sc, y = oy + p[1] / 100 * a.fh * sc;
         if (p[3] === 'bottom') y -= el.offsetHeight;
         y = Math.max(m, Math.min(y, H - el.offsetHeight - m));
-        // Phones: the hero is taller than the portrait frame, so keep the labels clear of the text column
-        // (difficulty above it, diversity below it, still over the precision band / the HOT3D wall).
+
         if (mq.matches && inner && !A.inside) {
           var ir = inner.getBoundingClientRect();
           if (el === l) y = Math.max(m, Math.min(y, ir.top - hr.top - el.offsetHeight - 14));
@@ -679,7 +660,6 @@
     if ('ResizeObserver' in window) { var ro = new ResizeObserver(place); ro.observe(hero); ro.observe(stage); }
   })();
 
-  /* ---------------- opening background video: muted autoplay; poster only for reduced motion / Save-Data ---------------- */
   (function () {
     var hero = $('.hero'), video = $('#hero-video'), pause = $('#hero-pause');
     if (!hero || !video) return;
@@ -688,10 +668,9 @@
     function sync() {
       if (!visible || document.hidden || !allowed()) { video.pause(); return; }
       if (!requested) {
-        // Variants differ only on desktop; the portrait (phone) loop is shared.
+
         var mob = matchMedia('(max-width: 760px)').matches;
-        // Default (b): left/right render on desktop, the portrait render on phones. Preview-only alternates:
-        // a = its own desktop render; c = the default render in a band; d = the portrait render in a tall right panel.
+
         var hv = document.documentElement.dataset.hero || 'b';
         if (hv === 'd' && !matchMedia('(min-width: 1101px)').matches) hv = 'c';
         var base = 'assets/hero/gnr-hero-' + (mob || hv === 'd' ? 'mobile' : hv === 'a' ? 'a-desktop' : 'desktop');
@@ -714,7 +693,6 @@
     afterLoad(sync);
   })();
 
-  /* ---------------- scrollable tables: edge fade + hint when they overflow ---------------- */
   function TableHints() {
     $$('.tbl .scroll').forEach(function (sc) {
       if (!sc.querySelector('table')) return;
@@ -729,7 +707,6 @@
     });
   }
 
-  /* ---------------- boot ---------------- */
   if (full) {
     var fr = $('[data-film]'); if (fr && M.film) film = new Film(fr, M.film);
     var st = $('[data-stepper]'); if (st && M.film && M.film.steps) Stepper(st, M.film.steps);

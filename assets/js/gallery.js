@@ -1,9 +1,7 @@
-/* Native dialog provides modal focus containment and Escape handling.
-   Gallery images reuse the page assets; no dependencies or initial thumbnail requests. */
 (function () {
   'use strict';
   if (!window.HTMLDialogElement || !HTMLDialogElement.prototype.showModal) return;
-  // Figures marked data-gallery.
+
   var sources = Array.from(document.querySelectorAll('img[data-gallery]'));
   if (!sources.length) return;
   var items = sources.map(function (img) {
@@ -48,7 +46,7 @@
     Array.from(thumbs.children).forEach(function (thumb, i) { thumb.setAttribute('aria-current', String(i === active)); });
     var current = thumbs.children[active];
     if (current) thumbs.scrollLeft = current.offsetLeft - thumbs.offsetLeft - (thumbs.clientWidth - current.clientWidth) / 2;
-    // Re-trigger a brief transition even when the image is already cached.
+
     void image.offsetWidth;
     image.classList.add('is-entering');
   }
@@ -74,7 +72,7 @@
     button.className = 'figure-link'; button.type = 'button';
     button.setAttribute('aria-label', 'Expand figure: ' + items[i].title);
     button.setAttribute('aria-haspopup', 'dialog');
-    // Wrap the whole <picture> (if any) so its WebP <source> stays attached to the image.
+
     var target = img.parentNode && img.parentNode.tagName === 'PICTURE' ? img.parentNode : img;
     target.parentNode.insertBefore(button, target); button.appendChild(target);
     var hint = document.createElement('span'); hint.className = 'figure-link__hint'; hint.setAttribute('aria-hidden', 'true');
